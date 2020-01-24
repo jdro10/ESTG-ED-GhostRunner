@@ -1,4 +1,4 @@
-package ex1;
+package Estruturas;
 
 import java.util.ConcurrentModificationException;
 import java.util.Iterator;
@@ -6,11 +6,8 @@ import java.util.Iterator;
 public abstract class ArrayList<T> implements ListADT<T> {
 
     protected T[] list;
-
     protected int rear;
-
     private static final int DEFAULT_LENGTH = 5;
-
     protected int modCount;
 
     public ArrayList() {
@@ -20,7 +17,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
     }
 
     public ArrayList(int size) {
-        this.list = (T[]) new Object[DEFAULT_LENGTH];
+        this.list = (T[]) new Object[size];
         this.rear = 0;
         this.modCount = 0;
     }
@@ -28,7 +25,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
     @Override
     public T removeFirst() throws EmptyException {
         if (this.isEmpty()) {
-            throw new EmptyException("tá vazio");
+            throw new EmptyException("empty collection");
         }
 
         T temp = this.first();
@@ -47,7 +44,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
     @Override
     public T removeLast() throws EmptyException {
         if (this.isEmpty()) {
-            throw new EmptyException("tá vazio");
+            throw new EmptyException("empty collection");
         }
 
         T temp = this.last();
@@ -62,7 +59,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
     @Override
     public T remove(T element) throws EmptyException, NotFoundException {
         if (this.isEmpty()) {
-            throw new EmptyException("tá vazio");
+            throw new EmptyException("empty collection");
         }
 
         int remove;
@@ -93,13 +90,13 @@ public abstract class ArrayList<T> implements ListADT<T> {
             }
         }
 
-        throw new NotFoundException("nao existe");
+        throw new NotFoundException("not found");
     }
 
     @Override
     public T first() throws EmptyException {
         if (this.isEmpty()) {
-            throw new EmptyException("tá vazio!");
+            throw new EmptyException("empty collection");
         }
 
         return this.list[0];
@@ -108,7 +105,7 @@ public abstract class ArrayList<T> implements ListADT<T> {
     @Override
     public T last() throws EmptyException {
         if (this.isEmpty()) {
-            throw new EmptyException("tá vazio!");
+            throw new EmptyException("empty collection");
         }
 
         return this.list[this.rear - 1];
@@ -162,10 +159,9 @@ public abstract class ArrayList<T> implements ListADT<T> {
 
         @Override
         public boolean hasNext() {
-            if (expectedModCount != modCount) {
-                throw new ConcurrentModificationException("A LISTA FOI MUDADA");
+            if (this.expectedModCount != modCount) {
+                throw new ConcurrentModificationException("concurrent modification");
             }
-
             this.okToRemove = false;
 
             return this.cursor != size();
@@ -174,9 +170,8 @@ public abstract class ArrayList<T> implements ListADT<T> {
         @Override
         public T next() {
             if (!hasNext()) {
-                throw new ArrayIndexOutOfBoundsException("já percorreu todo");
+                throw new ArrayIndexOutOfBoundsException("out of bounds");
             }
-
             this.okToRemove = true;
 
             return list[this.cursor++];
@@ -186,21 +181,20 @@ public abstract class ArrayList<T> implements ListADT<T> {
         public void remove() {
             if (!this.okToRemove) {
                 try {
-                    throw new NotRemovableException("não removível");
+                    throw new NotRemovableException("not removable");
                 } catch (NotRemovableException e) {
-                    throw new ConcurrentModificationException("Error");
+                    throw new ConcurrentModificationException("concurrent modification");
                 }
             }
 
             try {
                 ArrayList.this.remove(list[this.cursor - 1]);
             } catch (NotFoundException | EmptyException e) {
-                throw new ConcurrentModificationException("Error");
+                throw new ConcurrentModificationException("concurrent modification");
             }
 
             this.okToRemove = false;
             this.expectedModCount = modCount;
         }
-
     }
 }

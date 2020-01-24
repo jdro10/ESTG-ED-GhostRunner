@@ -1,4 +1,4 @@
-package ex1;
+package Estruturas;
 
 public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<T> {
 
@@ -12,14 +12,11 @@ public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<
 
     @Override
     public void add(T element) throws NoComparableException {
-
         if (!(element instanceof Comparable)) {
-
-            throw new NoComparableException("não é  comparável");
+            throw new NoComparableException("not comparable");
         }
 
         Comparable<T> obj = (Comparable<T>) element;
-
 
         if (this.isEmpty()) {
             this.list[0] = element;
@@ -43,16 +40,8 @@ public class ArrayOrderedList<T> extends ArrayList<T> implements OrderedListADT<
             }
 
             this.list[i] = element;
-
             this.rear++;
-
             this.modCount++;
-
         }
-
-
-
     }
-
-
 }

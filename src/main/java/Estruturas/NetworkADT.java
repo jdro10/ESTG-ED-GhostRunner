@@ -1,19 +1,18 @@
-package ex1;
+package Estruturas;
 
 /**
  * NetworkADT defines the interface to a network.
- *
  */
-public interface NetworkADT<T> extends GraphADT<T>
-{
+public interface NetworkADT<T> extends GraphADT<T> {
     /**
      * Inserts an edge between two vertices of this graph.
      *
      * @param vertex1 the first vertex
      * @param vertex2 the second vertex
-     * @param weight the weight
+     * @param weight  the weight
      */
-    public void addEdge (T vertex1, T vertex2, double weight);
+    public void addEdge(T vertex1, T vertex2, double weight);
+
     /**
      * Returns the weight of the shortest path in this network.
      *

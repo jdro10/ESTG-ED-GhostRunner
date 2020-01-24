@@ -1,70 +1,61 @@
-package ex1;
+package Estruturas;
 
 public class LinkedStack<T> implements StackADT<T> {
 
     private LinearNode<T> top;
     private int count;
 
-    public LinkedStack(){
+    public LinkedStack() {
         this.count = 0;
         this.top = null;
     }
 
-    //adiciona
     @Override
     public void push(T element) {
+        LinearNode<T> newNode = new LinearNode<>(element);
 
-        LinearNode <T> newNode = new LinearNode<>(element);
-
-        if(this.count == 0){
+        if (this.count == 0) {
             this.top = newNode;
-        }else{
+        } else {
             newNode.setNext(this.top);
             this.top = newNode;
         }
 
-        count++;
-
+        this.count++;
     }
 
-    //tira
     @Override
     public T pop() throws EmptyCollectionException {
-
-        if(isEmpty()){
-            throw new EmptyCollectionException("vazio!!");
-        }else{
-            LinearNode <T> temp = this.top;
+        if (isEmpty()) {
+            throw new EmptyCollectionException("empty collection");
+        } else {
+            LinearNode<T> temp = this.top;
             this.top = this.top.getNext();
             temp.setNext(null);
             this.count--;
+
             return temp.getElement();
         }
-
     }
 
-    //vê
     @Override
     public T peek() throws EmptyCollectionException {
-
-        if(isEmpty()){
-            throw new EmptyCollectionException("vazio!!");
+        if (isEmpty()) {
+            throw new EmptyCollectionException("empty collection");
         }
 
         return this.top.getElement();
     }
 
-    //se tá cheio
     @Override
     public boolean isEmpty() {
-        if(count==0){
+        if (this.count == 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    //tamanho
     @Override
     public int size() {
         return count;
@@ -76,7 +67,7 @@ public class LinkedStack<T> implements StackADT<T> {
         int i = 0;
 
         LinearNode<T> node = top;
-        while(node != null){
+        while (node != null) {
             s = node.toString() + "";
             node = node.getNext();
             i++;
@@ -85,4 +76,3 @@ public class LinkedStack<T> implements StackADT<T> {
         return s;
     }
 }
-

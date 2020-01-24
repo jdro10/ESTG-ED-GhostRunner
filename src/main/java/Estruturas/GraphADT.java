@@ -1,4 +1,4 @@
-package ex1;
+package Estruturas;
 
 import java.util.Iterator;
 

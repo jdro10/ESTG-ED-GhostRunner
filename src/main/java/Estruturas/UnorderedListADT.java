@@ -1,6 +1,6 @@
-package ex1;
+package Estruturas;
 
-public interface UnorderedListADT<T> extends ListADT<T>{
+public interface UnorderedListADT<T> extends ListADT<T> {
 
     /**
      * Adds an element to the front of the list
@@ -16,12 +16,10 @@ public interface UnorderedListADT<T> extends ListADT<T>{
      */
     public void addToRear(T element);
 
-
     /**
      * Adds an element after a particular element already in the list
      *
      * @param element the element to be added to this list
      */
     public void addAfter(T element, T target) throws NotFoundException;
-
 }

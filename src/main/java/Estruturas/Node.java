@@ -1,6 +1,6 @@
-package ex1;
+package Estruturas;
 
-public class Node <T>{
+public class Node<T> {
 
     private Node next;
     private T element;
@@ -21,7 +21,6 @@ public class Node <T>{
     public void setNext(Node next) {
         this.next = next;
     }
-
 
     @Override
     public String toString() {
