@@ -1,9 +1,7 @@
-package ex1;
+package Estruturas;
 
 public class EmptyException extends Exception {
-
     public EmptyException(String message) {
         super(message);
     }
-
 }

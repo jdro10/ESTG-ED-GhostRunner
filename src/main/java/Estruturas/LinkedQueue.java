@@ -1,8 +1,8 @@
-package ex1;
+package Estruturas;
 
-public class LinkedQueue<T> implements QueueADT <T> {
+public class LinkedQueue<T> implements QueueADT<T> {
 
-    private Node <T> front,rear;
+    private Node<T> front, rear;
     private T element;
     private int count;
 
@@ -12,17 +12,15 @@ public class LinkedQueue<T> implements QueueADT <T> {
         this.count = 0;
     }
 
-
     @Override
     public void enqueue(T element) {
+        Node<T> temp = new Node<T>(element);
 
-        Node <T> temp =  new Node<T>(element);
-
-        if(size()==0){
+        if (size() == 0) {
             this.front = temp;
             this.rear = temp;
             this.count++;
-        }else{
+        } else {
             this.rear.setNext(temp);
             this.rear = temp;
             this.count++;
@@ -30,20 +28,17 @@ public class LinkedQueue<T> implements QueueADT <T> {
     }
 
     @Override
-    public T dequeue() throws EmptyException{
-
-        if(isEmpty()){
-            throw new EmptyException("Está vazia CARALHO");
+    public T dequeue() throws EmptyException {
+        if (isEmpty()) {
+            throw new EmptyException("empty collection");
         }
 
         T temp = this.front.getElement();
 
         this.front = this.front.getNext();
-
-        count--;
+        this.count--;
 
         return temp;
-
     }
 
     @Override
@@ -51,13 +46,11 @@ public class LinkedQueue<T> implements QueueADT <T> {
         return this.front.getElement();
     }
 
-    //vazio ou nao
     @Override
     public boolean isEmpty() {
-        return (size()==0);
+        return (size() == 0);
     }
 
-    //tamanho
     @Override
     public int size() {
         return this.count;
@@ -69,14 +62,11 @@ public class LinkedQueue<T> implements QueueADT <T> {
 
         Node<T> current = this.front;
 
-        while(current!=null){
+        while (current != null) {
             s += current.toString() + "\n";
             current = current.getNext();
         }
 
         return s;
-
     }
-
-
 }

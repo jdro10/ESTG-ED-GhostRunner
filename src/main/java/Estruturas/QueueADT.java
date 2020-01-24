@@ -1,12 +1,12 @@
-package ex1;
+package Estruturas;
 
-public interface QueueADT <T> {
+public interface QueueADT<T> {
 
     /**
      * Adds one element to the rear of this queue.
      *
      * @param element the element to be added to
-     * the rear of this queue
+     *                the rear of this queue
      */
     public void enqueue(T element);
 
@@ -48,5 +48,4 @@ public interface QueueADT <T> {
      */
     @Override
     public String toString();
-
 }

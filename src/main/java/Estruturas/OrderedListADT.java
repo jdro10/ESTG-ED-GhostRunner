@@ -1,6 +1,6 @@
-package ex1;
+package Estruturas;
 
-public interface OrderedListADT<T> extends ListADT<T>  {
+public interface OrderedListADT<T> extends ListADT<T> {
 
     /**
      * Adds the specified element to this list at
@@ -9,5 +9,4 @@ public interface OrderedListADT<T> extends ListADT<T>  {
      * @param element the element to be added to this list
      */
     public void add(T element) throws NoComparableException;
-
 }
