@@ -31,4 +31,6 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
     public double shortestPathWeight(T vertex1, T vertex2) {
         return 0;
     }
+
+
 }

@@ -62,6 +62,11 @@ public class Mapa {
         return mapa.length;
     }
 
+    public Aposento getAposento(int i){
+        return this.mapa[i];
+    }
+
+
     @Override
     public String toString() {
         return "Jogo.Mapa{" +
