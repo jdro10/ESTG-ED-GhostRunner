@@ -1,13 +1,12 @@
-import java.util.Arrays;
+package Jogo;
 
-public class Sala {
+public class Aposento {
 
     private String aposento;
     private int fantasma;
     private String [] ligacoes;
 
-
-    public Sala(String aposento, int fantasma, String[] ligacoes) {
+    public Aposento(String aposento, int fantasma, String[] ligacoes) {
         this.aposento = aposento;
         this.fantasma = fantasma;
         this.ligacoes = ligacoes;
@@ -49,11 +48,10 @@ public class Sala {
 
     @Override
     public String toString() {
-        return "Sala{" +
+        return "Jogo.Sala{" +
                 "aposento='" + aposento + '\'' +
                 ", fantasma=" + fantasma +
                 ", ligacoes=" + getLigacoes() +
                 '}';
     }
-
 }
