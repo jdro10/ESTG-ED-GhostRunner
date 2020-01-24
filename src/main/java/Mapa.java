@@ -26,7 +26,6 @@ public class Mapa {
             this.setNome(mapa.getNome());
             this.setPontos(mapa.getPontos());
 
-
             reader.close();
 
         } catch (Exception ex) {
@@ -56,6 +55,10 @@ public class Mapa {
 
     public void setMapa(Sala[] mapa) {
         this.mapa = mapa;
+    }
+
+    public int numeroSalas(){
+        return mapa.length;
     }
 
     @Override
