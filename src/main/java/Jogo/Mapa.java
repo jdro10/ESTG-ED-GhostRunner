@@ -1,3 +1,5 @@
+package Jogo;
+
 import com.google.gson.Gson;
 
 import java.io.Reader;
@@ -9,8 +11,7 @@ public class Mapa {
 
     public String nome;
     public String pontos;
-    public Sala[] mapa;
-
+    public Aposento[] mapa;
 
     public void lerJson(){
         try {
@@ -49,11 +50,11 @@ public class Mapa {
         this.pontos = pontos;
     }
 
-    public Sala[] getMapa() {
+    public Aposento[] getMapa() {
         return mapa;
     }
 
-    public void setMapa(Sala[] mapa) {
+    public void setMapa(Aposento[] mapa) {
         this.mapa = mapa;
     }
 
@@ -63,7 +64,7 @@ public class Mapa {
 
     @Override
     public String toString() {
-        return "Mapa{" +
+        return "Jogo.Mapa{" +
                 "nome='" + nome + '\'' +
                 ", pontos=" + pontos +
                 ", mapa=" + Arrays.toString(mapa) +
