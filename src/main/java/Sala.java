@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Sala {
 
     private String aposento;
@@ -27,11 +29,31 @@ public class Sala {
         this.fantasma = fantasma;
     }
 
-    public String[] getLigacoes() {
-        return ligacoes;
+    public String getLigacoes() {
+        String s = "";
+
+        for(int i = 0 ; i < this.ligacoes.length ; i++){
+            if(i == this.ligacoes.length-1){
+                s += this.ligacoes[i];
+            }else{
+                s += this.ligacoes[i] + ",";
+            }
+        }
+
+        return s;
     }
 
     public void setLigacoes(String[] ligacoes) {
         this.ligacoes = ligacoes;
     }
+
+    @Override
+    public String toString() {
+        return "Sala{" +
+                "aposento='" + aposento + '\'' +
+                ", fantasma=" + fantasma +
+                ", ligacoes=" + getLigacoes() +
+                '}';
+    }
+
 }
