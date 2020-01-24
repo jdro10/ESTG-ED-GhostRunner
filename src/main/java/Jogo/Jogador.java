@@ -8,18 +8,22 @@ public class Jogador implements IJogador {
     private int pontuacao;
     private final int PONTUACAO_INICIAL = 100;
 
-    public Jogador() {
-        this.nome = null;
+    public Jogador(String nome) {
+        this.nome = nome;
         this.pontuacao = PONTUACAO_INICIAL;
     }
 
-    public boolean setNome(String nome) {
-        if (!this.nome.equals("")) {
-            this.nome = nome;
-            return true;
-        }
+    //depois tirar este método
+    public void setPontuacao(int pontuacao) {
+        this.pontuacao = pontuacao;
+    }
 
-        return false;
+    public String getNome() {
+        return nome;
+    }
+
+    public int getPontuacao() {
+        return pontuacao;
     }
 
     @Override
