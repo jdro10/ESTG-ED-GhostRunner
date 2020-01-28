@@ -5,6 +5,11 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
     protected double[][] weightMatrix;
     protected final double DEFAULT_WEIGHT = 1.0;
 
+    public Network() {
+        super();
+        this.weightMatrix = new double[DEFAULT_CAPACITY][DEFAULT_CAPACITY];
+    }
+
     @Override
     public void addEdge(T vertex1, T vertex2, double weight) {
 
