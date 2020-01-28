@@ -33,15 +33,14 @@ public class Jogo {
 
         this.graph.addVertex(exterior);
 
-        for (int i = 0; i < this.graph.size(); i++) {
+        for (int i = 0; i < this.graph.size() - 1; i++) {
             for (int j = 1; j < this.graph.size() - 1; j++) {
                 if (hasEdge(this.graph.getVertex(i).getAposento(), j)) {
                     this.graph.addEdge(this.graph.getVertex(i), this.graph.getVertex(j));
+                    this.graph.setOneDirectionWeightPath(this.graph.getVertex(i), this.graph.getVertex(j).getFantasma(), this.graph.getVertex(j));
                 }
             }
         }
-
-
     }
 
     public boolean hasEdge(String aposento, int index) {
