@@ -35,4 +35,13 @@ public class Jogador implements IJogador {
     public void danoRecebido() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Jogador{" +
+                "nome='" + nome + '\'' +
+                ", pontuacao=" + pontuacao +
+                ", PONTUACAO_INICIAL=" + PONTUACAO_INICIAL +
+                '}';
+    }
 }

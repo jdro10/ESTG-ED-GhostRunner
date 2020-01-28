@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 public class Mapa {
 
@@ -81,8 +80,7 @@ public class Mapa {
     public String toString() {
         return "Jogo.Mapa{" +
                 "nome='" + nome + '\'' +
-                ", pontos=" + pontos +
-                ", mapa=" + Arrays.toString(mapa) +
+                this.arrayOrderedList.toString() +
                 '}';
     }
 }

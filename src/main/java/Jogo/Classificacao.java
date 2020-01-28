@@ -6,12 +6,11 @@ public class Classificacao implements Comparable<Classificacao> {
 
     private String nomeMapa;
     private Jogador jogador;
-    private ArrayOrderedList<Classificacao> arrayOrderedList;
+
 
     public Classificacao(String nomeMapa, Jogador jogador) {
         this.nomeMapa = nomeMapa;
         this.jogador = jogador;
-        this.arrayOrderedList = new ArrayOrderedList<>();
     }
 
     @Override
