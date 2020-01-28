@@ -1,5 +1,7 @@
 package Jogo;
 
+import Estruturas.ArrayOrderedList;
+import Estruturas.NoComparableException;
 import com.google.gson.Gson;
 
 import java.io.Reader;
@@ -12,8 +14,13 @@ public class Mapa {
     public String nome;
     public String pontos;
     public Aposento[] mapa;
+    private ArrayOrderedList<Classificacao> arrayOrderedList;
 
-    public void lerJson(){
+    public Mapa() {
+        this.arrayOrderedList = new ArrayOrderedList<>();
+    }
+
+    public void lerJson() {
         try {
             Gson gson = new Gson();
 
@@ -21,7 +28,7 @@ public class Mapa {
 
             Reader reader = Files.newBufferedReader(Paths.get(json));
 
-            Mapa mapa = gson.fromJson(reader,Mapa.class);
+            Mapa mapa = gson.fromJson(reader, Mapa.class);
 
             this.setMapa(mapa.getMapa());
             this.setNome(mapa.getNome());
@@ -58,7 +65,7 @@ public class Mapa {
         this.mapa = mapa;
     }
 
-    public int numeroSalas(){
+    public int numeroSalas() {
         return mapa.length;
     }
 
@@ -66,7 +73,10 @@ public class Mapa {
         return this.mapa[i];
     }
 
-
+    public void ordenaClassificacaoMapa(Classificacao classificacao) throws NoComparableException {
+        this.arrayOrderedList.add(classificacao);
+    }
+  
     @Override
     public String toString() {
         return "Jogo.Mapa{" +
