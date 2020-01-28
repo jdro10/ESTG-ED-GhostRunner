@@ -69,10 +69,14 @@ public class Mapa {
         return mapa.length;
     }
 
+    public Aposento getAposento(int i){
+        return this.mapa[i];
+    }
+
     public void ordenaClassificacaoMapa(Classificacao classificacao) throws NoComparableException {
         this.arrayOrderedList.add(classificacao);
     }
-
+  
     @Override
     public String toString() {
         return "Jogo.Mapa{" +

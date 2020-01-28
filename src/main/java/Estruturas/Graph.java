@@ -6,12 +6,51 @@ public class Graph<T> implements GraphADT<T> {
     protected final int DEFAULT_CAPACITY = 10;
     protected int numVertices;
     protected boolean[][] adjMatrix;
-    protected T[] vertices;
+    public T[] vertices;
 
     public Graph() {
         this.numVertices = 0;
         this.adjMatrix = new boolean[DEFAULT_CAPACITY][DEFAULT_CAPACITY];
         this.vertices = (T[]) (new Object[DEFAULT_CAPACITY]);
+    }
+
+    public String toString(){
+
+        String s = "";
+        String result = "";
+
+        for(int i = 0 ; i < this.size() ; i++){
+            s += vertices[i].toString() + "\n";
+        }
+
+        result += "Adjacency Matrix\n";
+        result += "----------------\n";
+
+        result += "    ";
+        for (int i = 0; i < numVertices; i++)
+        {
+            result += "" + i;
+            if (i < 10)
+                result += " ";
+        }
+        result += "\n\n";
+
+        for (int i = 0; i < numVertices; i++)
+        {
+            result += "" + i + "\t";
+
+            for (int j = 0; j < numVertices; j++)
+            {
+                if (adjMatrix[i][j])
+                    result += "1 ";
+                else
+                    result += "0 ";
+            }
+            result += "\n";
+        }
+
+
+        return result;
     }
 
     public void addEdge(T vertex1, T vertex2) {
@@ -288,5 +327,9 @@ public class Graph<T> implements GraphADT<T> {
 
         this.vertices = verticesTmp;
         this.adjMatrix = adjMatrixTmp;
+    }
+
+    public T getVertex(int num){
+        return this.vertices[num];
     }
 }

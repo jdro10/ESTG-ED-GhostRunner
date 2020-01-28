@@ -28,8 +28,16 @@ public class Aposento {
         this.fantasma = fantasma;
     }
 
+    public int getNumeroLigacoes(){
+        return this.ligacoes.length;
+    }
+
     public String getLigacoes() {
         String s = "";
+
+        if(this.ligacoes == null){
+            return "";
+        }
 
         for(int i = 0 ; i < this.ligacoes.length ; i++){
             if(i == this.ligacoes.length-1){
@@ -42,13 +50,17 @@ public class Aposento {
         return s;
     }
 
+    public String getLigacao(int i){
+        return this.ligacoes[i];
+    }
+
     public void setLigacoes(String[] ligacoes) {
         this.ligacoes = ligacoes;
     }
 
     @Override
     public String toString() {
-        return "Jogo.Sala{" +
+        return "Sala{" +
                 "aposento='" + aposento + '\'' +
                 ", fantasma=" + fantasma +
                 ", ligacoes=" + getLigacoes() +

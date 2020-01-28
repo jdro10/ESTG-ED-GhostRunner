@@ -1,5 +1,6 @@
 package Demo;
 
+import Jogo.Jogo;
 import Jogo.Mapa;
 
 public class Demo {
@@ -10,8 +11,9 @@ public class Demo {
 
         mapa.lerJson();
 
-        System.out.println(mapa.toString());
+        Jogo j = new Jogo(mapa);
 
-        System.out.println(mapa.numeroSalas());
+        System.out.println(j.getGraph().toString());
+
     }
 }
