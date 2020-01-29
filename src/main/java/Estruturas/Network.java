@@ -70,7 +70,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
     public double shortestPathWeight(T vertex1, T vertex2) {
         return 0;
     }
-
+  
     public void setOneDirectionWeightPath(T v1, double weight, T v2) {
         if (weight < 0.0) {
             throw new IllegalArgumentException("weight must be higher than 0");

@@ -6,7 +6,7 @@ import Estruturas.Network;
 public class Jogo {
 
     private Mapa mapa;
-    private Network<Aposento> graph;
+    private NetworkGame<Aposento> graph;
 
     public Jogo(Mapa mapa) throws InvalidIndexException {
         this.mapa = mapa;
@@ -20,7 +20,7 @@ public class Jogo {
 
     public void initializeGraph() throws InvalidIndexException {
 
-        this.graph = new Network();
+        this.graph = new NetworkGame();
 
         Aposento entrada = new Aposento("entrada", 0, null);
 

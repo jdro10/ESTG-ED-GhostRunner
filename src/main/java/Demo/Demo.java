@@ -18,8 +18,6 @@ public class Demo {
 
         System.out.println(j.getGraph().toString());
 
-
-
         Network<Integer> network = new Network<>();
         network.addVertex(0);
         network.addVertex(1);
@@ -54,12 +52,9 @@ public class Demo {
         mapa.ordenaClassificacaoMapa(cl3);
 
 
-        System.out.println(mapa.toString());
+        System.out.println(mapa.toString());*/
 
 
        */
-
-
-
     }
 }
