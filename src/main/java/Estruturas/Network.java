@@ -11,12 +11,12 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
 
         String s = "";
         String result = "";
 
-        for(int i = 0 ; i < this.size() ; i++){
+        for (int i = 0; i < this.size(); i++) {
             s += vertices[i].toString() + "\n";
         }
 
@@ -24,20 +24,17 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         result += "----------------\n";
 
         result += "    ";
-        for (int i = 0; i < numVertices; i++)
-        {
+        for (int i = 0; i < numVertices; i++) {
             result += "" + i;
             if (i < 10)
                 result += " ";
         }
         result += "\n\n";
 
-        for (int i = 0; i < numVertices; i++)
-        {
+        for (int i = 0; i < numVertices; i++) {
             result += "" + i + "\t";
 
-            for (int j = 0; j < numVertices; j++)
-            {
+            for (int j = 0; j < numVertices; j++) {
                 result += this.weightMatrix[i][j] + "\t";
             }
             result += "\n";
@@ -74,7 +71,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         return 0;
     }
 
-    public void setOneDirectionWeightPath(T v1, double weight, T v2){
+    public void setOneDirectionWeightPath(T v1, double weight, T v2) {
         if (weight < 0.0) {
             throw new IllegalArgumentException("weight must be higher than 0");
         }
@@ -85,5 +82,47 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         this.weightMatrix[posv1][posv2] = weight;
     }
 
+    public void dijkstraShortestPath(int startIndex) throws InvalidIndexException {
+        if(!super.indexIsValid(startIndex)){
+            throw new InvalidIndexException("Invalid Index");
+        }
 
+        int[] distancesToOtherVertices = new int[super.size()];
+        boolean[] visitedVertex = new boolean[super.size()];
+
+        for (int i = 0; i < distancesToOtherVertices.length; i++) {
+            distancesToOtherVertices[i] = Integer.MAX_VALUE;
+            visitedVertex[i] = false;
+        }
+
+        distancesToOtherVertices[startIndex] = 0; //vertice inicial
+
+        for(int i = 0; i < super.size(); i++){
+            int minVertex = findMinDistance(distancesToOtherVertices, visitedVertex);
+            visitedVertex[minVertex] = true;
+
+            for(int j = 0; j < super.size(); j++){
+                if(this.weightMatrix[minVertex][j] != 0 && !visitedVertex[j]){
+                    int dist = (int) (distancesToOtherVertices[minVertex] + this.weightMatrix[minVertex][j]);
+                    if(dist < distancesToOtherVertices[j]){
+                        distancesToOtherVertices[j] = dist;
+                    }
+                }
+            }
+        }
+    }
+
+    public int findMinDistance(int[] distance, boolean[] visitedVertex){
+        int minIndex = -1;
+        int minVertex = Integer.MAX_VALUE;
+
+        for(int i = 0; i < distance.length; i++){
+            if(!visitedVertex[i] && distance[i] <= minVertex){
+                minVertex = distance[i];
+                minIndex = i;
+            }
+        }
+
+        return minIndex;
+    }
 }

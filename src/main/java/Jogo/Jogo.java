@@ -1,5 +1,6 @@
 package Jogo;
 
+import Estruturas.InvalidIndexException;
 import Estruturas.Network;
 
 public class Jogo {
@@ -7,7 +8,7 @@ public class Jogo {
     private Mapa mapa;
     private Network<Aposento> graph;
 
-    public Jogo(Mapa mapa) {
+    public Jogo(Mapa mapa) throws InvalidIndexException {
         this.mapa = mapa;
         this.initializeGraph();
     }
@@ -17,7 +18,7 @@ public class Jogo {
         return this.graph;
     }
 
-    public void initializeGraph() {
+    public void initializeGraph() throws InvalidIndexException {
 
         this.graph = new Network();
 
@@ -41,6 +42,8 @@ public class Jogo {
                 }
             }
         }
+
+        this.graph.dijkstraShortestPath(5);
     }
 
     public boolean hasEdge(String aposento, int index) {
