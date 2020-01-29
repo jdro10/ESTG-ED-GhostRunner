@@ -5,7 +5,7 @@ import Estruturas.Network;
 public class Jogo {
 
     private Mapa mapa;
-    private Network<Aposento> graph;
+    private NetworkGame<Aposento> graph;
 
     public Jogo(Mapa mapa) {
         this.mapa = mapa;
@@ -19,7 +19,7 @@ public class Jogo {
 
     public void initializeGraph() {
 
-        this.graph = new Network();
+        this.graph = new NetworkGame();
 
         Aposento entrada = new Aposento("entrada", 0, null);
 

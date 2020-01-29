@@ -10,7 +10,7 @@ public class Demo {
 
     public static void main(String[] args) throws NoComparableException {
 
-        /**
+
         Mapa mapa = new Mapa();
 
         mapa.lerJson();
@@ -18,8 +18,9 @@ public class Demo {
         Jogo j = new Jogo(mapa);
 
         System.out.println(j.getGraph().toString());
-         */
 
+
+        /**
         Jogador j = new Jogador("xPromate");
         Classificacao cl = new Classificacao("mapaFixe",j);
         Classificacao cl2 = new Classificacao("mapaFixe",j);
@@ -34,7 +35,7 @@ public class Demo {
         mapa.ordenaClassificacaoMapa(cl3);
 
 
-        System.out.println(mapa.toString());
+        System.out.println(mapa.toString());*/
 
     }
 }
