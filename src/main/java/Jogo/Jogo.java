@@ -49,11 +49,10 @@ public class Jogo {
                 }
             }
         }
+
+        this.graph.getShortestPath(entrada, exterior);
     }
 
-    public void dijkstra() throws InvalidIndexException {
-        this.graph.dijkstraShortestPath(0);
-    }
 
     public boolean hasEdge(String aposento, int index) {
 

@@ -21,7 +21,7 @@ public class Demo {
 
         System.out.println(j.getGraph().toString());
 
-        j.dijkstra();
+
 
 
 
