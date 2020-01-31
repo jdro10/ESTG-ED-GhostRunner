@@ -5,6 +5,7 @@ import Estruturas.Network;
 import Estruturas.NoComparableException;
 import Jogo.Jogo;
 import Jogo.Mapa;
+import Enum.Dificuldade;
 
 public class Demo {
 
@@ -14,9 +15,12 @@ public class Demo {
 
         mapa.lerJson();
 
-        Jogo j = new Jogo(mapa);
+        Jogo j = new Jogo(mapa,"xPromate", Dificuldade.FACIL);
 
-        System.out.println(j.getGraph().toString());
+        //System.out.println(j.getGraph().toString());
+
+        j.mostrarOpcoes();
+
 
         Network<Integer> network = new Network<>();
         network.addVertex(0);
@@ -55,6 +59,6 @@ public class Demo {
         System.out.println(mapa.toString());*/
 
 
-       */
+
     }
 }

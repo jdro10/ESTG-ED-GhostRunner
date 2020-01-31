@@ -14,6 +14,18 @@ public class Graph<T> implements GraphADT<T> {
         this.vertices = (T[]) (new Object[DEFAULT_CAPACITY]);
     }
 
+    public boolean[][] getAdjMatrix() {
+        return adjMatrix;
+    }
+
+    public boolean getAdjMatrixIndex(int i,int j){
+        return this.adjMatrix[i][j];
+    }
+
+    public void setAdjMatrix(boolean[][] adjMatrix) {
+        this.adjMatrix = adjMatrix;
+    }
+
     public String toString(){
 
         String s = "";

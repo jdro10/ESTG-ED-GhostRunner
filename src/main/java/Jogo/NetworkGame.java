@@ -14,4 +14,6 @@ public class NetworkGame<T> extends Network<T> {
 
         this.weightMatrix[posv1][posv2] = weight;
     }
+
+
 }
