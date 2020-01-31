@@ -19,9 +19,11 @@ public class Demo {
 
         //System.out.println(j.getGraph().toString());
 
-        j.mostrarOpcoes();
+        j.dijkstra();
 
 
+
+        /**
         Network<Integer> network = new Network<>();
         network.addVertex(0);
         network.addVertex(1);
@@ -30,12 +32,12 @@ public class Demo {
         network.addVertex(4);
 
 
-        network.addEdge(0, 1, 4);
+        network.addEdge(0, 1, 0);
         network.addEdge(1, 2, 3);
         network.addEdge(2, 3, 1);
         network.addEdge(3, 4, 3);
         network.addEdge(1, 4, 2);
-        network.addEdge(0, 3, 5);
+        network.addEdge(0, 3, 0);
 
         network.dijkstraShortestPath(0);
 

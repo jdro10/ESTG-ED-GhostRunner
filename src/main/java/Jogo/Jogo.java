@@ -17,7 +17,7 @@ public class Jogo {
         this.initializeGraph();
         this.jogador = new Jogador(nome);
         this.dificuldade = dificuldade;
-        this.localJogador = "sala de estar";
+        this.localJogador = "entrada";
     }
 
 
@@ -50,7 +50,18 @@ public class Jogo {
             }
         }
 
-        this.graph.dijkstraShortestPath(5);
+        //VAI SER APAGADO
+        for(int i = 0 ; i < this.graph.size() ; i++){
+            for(int j = 0 ; j < this.graph.size() ; j++ ){
+                if(this.graph.getWeightMatrixIndex(i,j) == 0.0){
+                    this.graph.setWeightMatrixIndex(i,j,1);
+                }
+            }
+        }
+    }
+
+    public void dijkstra() throws InvalidIndexException {
+        this.graph.dijkstraShortestPath(0);
     }
 
     public boolean hasEdge(String aposento, int index) {
