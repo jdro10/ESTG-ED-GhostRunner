@@ -49,15 +49,6 @@ public class Jogo {
                 }
             }
         }
-
-        //VAI SER APAGADO
-        for(int i = 0 ; i < this.graph.size() ; i++){
-            for(int j = 0 ; j < this.graph.size() ; j++ ){
-                if(this.graph.getWeightMatrixIndex(i,j) == 0.0){
-                    this.graph.setWeightMatrixIndex(i,j,1);
-                }
-            }
-        }
     }
 
     public void dijkstra() throws InvalidIndexException {
@@ -75,10 +66,12 @@ public class Jogo {
 
     public void mostrarOpcoes(){
         int index = this.mostrarIndiceDivisao();
+        int j = 0;
 
         for(int i = 0 ; i < this.graph.size() ; i++){
             if(this.graph.getAdjMatrixIndex(index,i)){
-                System.out.println(this.graph.getVertex(i).getAposento());
+                System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
+                j++;
             }
         }
     }

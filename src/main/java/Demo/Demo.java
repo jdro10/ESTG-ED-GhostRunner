@@ -19,6 +19,8 @@ public class Demo {
 
         //System.out.println(j.getGraph().toString());
 
+        System.out.println(j.getGraph().toString());
+
         j.dijkstra();
 
 
