@@ -14,4 +14,17 @@ public class NetworkGame<T> extends Network<T> {
 
         this.weightMatrix[posv1][posv2] = weight;
     }
+
+    public boolean getAdjMatrixIndex(int i,int j){
+        return this.adjMatrix[i][j];
+    }
+
+    public double getWeightMatrixIndex(int i,int j){
+        return this.weightMatrix[i][j];
+    }
+
+    public void setWeightMatrixIndex(int i,int j,double weight){
+        this.weightMatrix[i][j] = weight;
+    }
+
 }

@@ -102,7 +102,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
             visitedVertex[minVertex] = true;
 
             for(int j = 0; j < super.size(); j++){
-                if(this.weightMatrix[minVertex][j] != 0 && !visitedVertex[j]){
+                if(this.weightMatrix[minVertex][j] != 0 && !visitedVertex[j] ){
                     int dist = (int) (distancesToOtherVertices[minVertex] + this.weightMatrix[minVertex][j]);
                     if(dist < distancesToOtherVertices[j]){
                         distancesToOtherVertices[j] = dist;
