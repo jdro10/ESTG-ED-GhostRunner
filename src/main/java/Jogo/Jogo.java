@@ -14,19 +14,20 @@ public class Jogo {
     private String localJogador;
     private Dificuldade dificuldade;
     private int dificuldadeMultiplicador;
+    private Aposento entrada;
+    private Aposento exterior;
 
-    public Jogo(Mapa mapa, String nome, Dificuldade dificuldade) throws InvalidIndexException {
+    public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException {
         this.mapa = mapa;
         this.graph = new NetworkGame();
         this.setDificuldadeMultiplicador(dificuldade);
         this.initializeGraph();
-        this.jogador = new Jogador(nome);
         this.localJogador = "entrada";
     }
 
-    public void initializeGraph() throws InvalidIndexException {
-        Aposento entrada = new Aposento("entrada", 0, null);
-        Aposento exterior = new Aposento("exterior", 0, null);
+    private void initializeGraph() {
+        this.entrada = new Aposento("entrada", 0, null);
+        this.exterior = new Aposento("exterior", 0, null);
 
         this.graph.addVertex(entrada);
 
@@ -40,12 +41,14 @@ public class Jogo {
             for (int j = 0; j < this.graph.size(); j++) {
                 if (hasEdge(this.graph.getVertex(i).getAposento(), j)) {
                     this.graph.addEdge(this.graph.getVertex(i), this.graph.getVertex(j));
-                    this.graph.setOneDirectionWeightPath(this.graph.getVertex(i), (this.graph.getVertex(j).getFantasma() * this.dificuldadeMultiplicador), this.graph.getVertex(j));
+                    this.graph.setOneDirectionWeightPath(this.graph.getVertex(i), this.graph.getVertex(j).getFantasma(), this.graph.getVertex(j));
                 }
             }
         }
+    }
 
-        Iterator<Aposento> it = this.graph.getShortestPath(entrada, exterior);
+    public void simulacaoJogo() throws InvalidIndexException {
+        Iterator<Aposento> it = this.graph.getShortestPath(this.entrada, this.exterior);
 
         while (it.hasNext()) {
             System.out.println(it.next());
