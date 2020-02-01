@@ -1,23 +1,21 @@
 package Demo;
 
 import Estruturas.InvalidIndexException;
-import Estruturas.Network;
-import Estruturas.NoComparableException;
-import Jogo.Jogo;
-import Jogo.Mapa;
-import Enum.Dificuldade;
+import Jogo.Menu;
 
 public class Demo {
 
-    public static void main(String[] args) throws InvalidIndexException {
+    public static void main(String[] args) {
 
-        Mapa mapa = new Mapa();
+        Menu menu = new Menu();
 
-        mapa.lerJson();
+        try {
+            menu.menuPrincipal();
+        } catch (InvalidIndexException e) {
+            System.out.println(e);
+        }
 
-        Jogo j = new Jogo(mapa, "xPromate", Dificuldade.DIFICIL);
-
-
+        /*
         j.mostrarOpcoes(0);
         System.out.println("------------------------");
         j.mostrarOpcoes(2);
@@ -30,6 +28,8 @@ public class Demo {
 
         //foi até ao exterior
         //ainda não tira pontuações mas isso penso q vai ser básico
+        */
+
     }
 
 }
