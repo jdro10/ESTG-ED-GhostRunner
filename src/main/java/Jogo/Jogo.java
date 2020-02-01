@@ -63,16 +63,23 @@ public class Jogo {
         return false;
     }
 
-    public void mostrarOpcoes(){
+    public void mostrarOpcoes(int opcao){
         int index = this.mostrarIndiceDivisao();
         int j = 0;
+        int[] array = new int[this.graph.size()];
 
         for(int i = 0 ; i < this.graph.size() ; i++){
-            if(this.graph.getAdjMatrixIndex(index,i)){
+            if(this.graph.getAdjMatrixIndex(index,i) && index != i){
                 System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
                 j++;
+                array[j] = i;
             }
         }
+
+        if(opcao < j){
+            this.localJogador = this.graph.getVertex(array[j]).getAposento();
+        }
+
     }
 
     public int mostrarIndiceDivisao(){
@@ -85,12 +92,14 @@ public class Jogo {
         return -1;
     }
 
-    public void mexe(int pos){
-
-    }
-
     public void dano_recebido(){
-
+        if(this.dificuldade == Dificuldade.FACIL){
+            this.jogador.setPontuacao(1*1);
+        }else if(this.dificuldade == Dificuldade.MEDIO){
+            this.jogador.setPontuacao(1*2);
+        }else{
+            this.jogador.setPontuacao(1*3);
+        }
     }
 
 }
