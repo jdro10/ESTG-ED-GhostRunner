@@ -23,7 +23,7 @@ public class Menu {
             System.out.println("----- GHOST RUNNER -----");
             System.out.println("1 - Modo simulação");
             System.out.println("2 - Modo manual");
-            System.out.println("3 - Sair");
+            System.out.println("0 - Sair");
 
             try {
                 escolha = reader.readLine();
@@ -74,6 +74,8 @@ public class Menu {
 
         mapa.lerJson();
 
-        Jogo jogo = new Jogo(mapa, "jdro10", dificuldadeEscolhida);
+        Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
+
+        jogo.simulacaoJogo();
     }
 }

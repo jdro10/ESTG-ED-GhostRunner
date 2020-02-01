@@ -63,7 +63,6 @@ public class Aposento {
         return "Sala{" +
                 "aposento='" + aposento + '\'' +
                 ", fantasma=" + fantasma +
-                ", ligacoes=" + getLigacoes() +
                 '}';
     }
 }
