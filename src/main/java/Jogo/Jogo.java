@@ -16,13 +16,14 @@ public class Jogo {
     private int dificuldadeMultiplicador;
     private Aposento entrada;
     private Aposento exterior;
+    private final String POSICAO_INICIAL = "entrada";
 
     public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException {
         this.mapa = mapa;
         this.graph = new NetworkGame();
         this.setDificuldadeMultiplicador(dificuldade);
         this.initializeGraph();
-        this.localJogador = "entrada";
+        this.localJogador = POSICAO_INICIAL;
     }
 
     private void initializeGraph() {
@@ -109,5 +110,9 @@ public class Jogo {
         } else if (this.dificuldade == Dificuldade.DIFICIL) {
             this.dificuldadeMultiplicador = 3;
         }
+    }
+
+    public void setJogador(Jogador jogador){
+        this.jogador = jogador;
     }
 }
