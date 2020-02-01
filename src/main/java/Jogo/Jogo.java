@@ -11,27 +11,22 @@ public class Jogo {
     private Mapa mapa;
     private NetworkGame<Aposento> graph;
     private Jogador jogador;
-    private Dificuldade dificuldade;
     private String localJogador;
+    private Dificuldade dificuldade;
+    private int dificuldadeMultiplicador;
 
-    public Jogo(Mapa mapa,String nome, Dificuldade dificuldade) throws InvalidIndexException {
+    public Jogo(Mapa mapa, String nome, Dificuldade dificuldade) throws InvalidIndexException {
         this.mapa = mapa;
+        this.graph = new NetworkGame();
+        this.setDificuldadeMultiplicador(dificuldade);
         this.initializeGraph();
         this.jogador = new Jogador(nome);
-        this.dificuldade = dificuldade;
         this.localJogador = "entrada";
     }
 
-
-    public Network<Aposento> getGraph() {
-        return this.graph;
-    }
-
     public void initializeGraph() throws InvalidIndexException {
-
-        this.graph = new NetworkGame();
-
         Aposento entrada = new Aposento("entrada", 0, null);
+        Aposento exterior = new Aposento("exterior", 0, null);
 
         this.graph.addVertex(entrada);
 
@@ -39,28 +34,25 @@ public class Jogo {
             this.graph.addVertex(this.mapa.getAposento(i));
         }
 
-        Aposento exterior = new Aposento("exterior", 0, null);
-
         this.graph.addVertex(exterior);
 
-        for (int i = 0; i < this.graph.size() ; i++) {
-            for (int j = 0; j < this.graph.size() ; j++) {
+        for (int i = 0; i < this.graph.size(); i++) {
+            for (int j = 0; j < this.graph.size(); j++) {
                 if (hasEdge(this.graph.getVertex(i).getAposento(), j)) {
                     this.graph.addEdge(this.graph.getVertex(i), this.graph.getVertex(j));
-                    this.graph.setOneDirectionWeightPath(this.graph.getVertex(i), this.graph.getVertex(j).getFantasma(), this.graph.getVertex(j));
+                    this.graph.setOneDirectionWeightPath(this.graph.getVertex(i), (this.graph.getVertex(j).getFantasma() * this.dificuldadeMultiplicador), this.graph.getVertex(j));
                 }
             }
         }
 
-        Iterator it = this.graph.getShortestPath(entrada, exterior);
+        Iterator<Aposento> it = this.graph.getShortestPath(entrada, exterior);
 
-        while(it.hasNext()){
+        while (it.hasNext()) {
             System.out.println(it.next());
         }
 
         System.out.println("Peso do caminho mais curto: " + this.graph.shortestPathWeight(entrada, exterior));
     }
-
 
     public boolean hasEdge(String aposento, int index) {
 
@@ -71,28 +63,28 @@ public class Jogo {
         return false;
     }
 
-    public void mostrarOpcoes(int opcao){
+    public void mostrarOpcoes(int opcao) {
         int index = this.mostrarIndiceDivisao();
         int j = 0;
         int[] array = new int[this.graph.size()];
 
-        for(int i = 0 ; i < this.graph.size() ; i++){
-            if(this.graph.getAdjMatrixIndex(index,i) && index != i){
+        for (int i = 0; i < this.graph.size(); i++) {
+            if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
                 System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
                 j++;
                 array[j] = i;
             }
         }
 
-        if(opcao < j){
+        if (opcao < j) {
             this.localJogador = this.graph.getVertex(array[j]).getAposento();
         }
 
     }
 
-    public int mostrarIndiceDivisao(){
-        for(int i = 0 ; i < this.graph.size() ; i++){
-            if(this.localJogador.equals(this.graph.getVertex(i).getAposento())){
+    public int mostrarIndiceDivisao() {
+        for (int i = 0; i < this.graph.size(); i++) {
+            if (this.localJogador.equals(this.graph.getVertex(i).getAposento())) {
                 return i;
             }
         }
@@ -100,14 +92,19 @@ public class Jogo {
         return -1;
     }
 
-    public void dano_recebido(){
-        if(this.dificuldade == Dificuldade.FACIL){
-            this.jogador.setPontuacao(1*1);
-        }else if(this.dificuldade == Dificuldade.MEDIO){
-            this.jogador.setPontuacao(1*2);
-        }else{
-            this.jogador.setPontuacao(1*3);
-        }
+    public void dano_recebido() {
+
     }
 
+    public void setDificuldadeMultiplicador(Dificuldade dificuldade) {
+        this.dificuldade = dificuldade;
+
+        if (this.dificuldade == Dificuldade.BASICO) {
+            this.dificuldadeMultiplicador = 1;
+        } else if (this.dificuldade == Dificuldade.NORMAL) {
+            this.dificuldadeMultiplicador = 2;
+        } else if (this.dificuldade == Dificuldade.DIFICIL) {
+            this.dificuldadeMultiplicador = 3;
+        }
+    }
 }

@@ -15,7 +15,7 @@ public class Demo {
 
         mapa.lerJson();
 
-        Jogo j = new Jogo(mapa,"xPromate", Dificuldade.FACIL);
+        Jogo j = new Jogo(mapa, "xPromate", Dificuldade.DIFICIL);
 
 
         j.mostrarOpcoes(0);
@@ -30,6 +30,6 @@ public class Demo {
 
         //foi até ao exterior
         //ainda não tira pontuações mas isso penso q vai ser básico
-
+    }
 
 }
