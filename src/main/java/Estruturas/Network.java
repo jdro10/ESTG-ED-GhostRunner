@@ -77,7 +77,16 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
             throw new InvalidIndexException("Invalid Index");
         }
 
-        return 0;
+        Iterator<T> iterator = this.dijkstraShortestPath(index1, index2);
+        double sum = 0;
+
+        int i = 0;
+        while (iterator.hasNext() && i != super.size()) {
+            sum += this.weightMatrix[i][getIndex(iterator.next())];
+            i++;
+        }
+
+        return sum;
     }
 
     public Iterator<T> getShortestPath(T vertex1, T vertex2) {

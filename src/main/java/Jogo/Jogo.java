@@ -57,6 +57,8 @@ public class Jogo {
         while(it.hasNext()){
             System.out.println(it.next());
         }
+
+        System.out.println("Peso do caminho mais curto: " + this.graph.shortestPathWeight(entrada, exterior));
     }
 
 
