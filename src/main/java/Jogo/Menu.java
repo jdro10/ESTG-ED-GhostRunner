@@ -36,6 +36,7 @@ public class Menu {
                     this.modoSimulacao();
                     break;
                 case "2":
+                    this.modoManual();
                     break;
                 case "3":
                     break;
@@ -77,5 +78,56 @@ public class Menu {
         Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
 
         jogo.simulacaoJogo();
+    }
+
+    private void modoManual() throws InvalidIndexException {
+        BufferedReader readerDificuldade = new BufferedReader(this.inputStreamReader);
+        Mapa mapa = new Mapa();
+        String dificuldade = null;
+        String nomeJogador = null;
+        Dificuldade dificuldadeEscolhida = null;
+
+        try {
+            System.out.println("Introduza o seu nome: ");
+            nomeJogador = readerDificuldade.readLine();
+            System.out.println("Introduza a dificuldade: ");
+            dificuldade = readerDificuldade.readLine();
+
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+
+        if (dificuldade.equalsIgnoreCase("BASICO")) {
+            dificuldadeEscolhida = Dificuldade.BASICO;
+        } else if (dificuldade.equalsIgnoreCase("NORMAL")) {
+            dificuldadeEscolhida = Dificuldade.NORMAL;
+        } else if (dificuldade.equalsIgnoreCase("DIFICIL")) {
+            dificuldadeEscolhida = Dificuldade.DIFICIL;
+        }
+
+        mapa.lerJson();
+
+        Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
+        Jogador jogador = new Jogador(nomeJogador);
+
+        jogo.setJogador(jogador);
+
+        BufferedReader readerPosicao = new BufferedReader(this.inputStreamReader);
+        String pos = null;
+
+        jogo.mostrarOpcoes(0);
+
+        while (true) {
+            System.out.println("\nIntroduza o próximo movimento: ");
+
+            try {
+                pos = readerPosicao.readLine();
+                System.out.println();
+            } catch (IOException e) {
+                System.out.println(e);
+            }
+
+            jogo.mostrarOpcoes(Integer.parseInt(pos));
+        }
     }
 }
