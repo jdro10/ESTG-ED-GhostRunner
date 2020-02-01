@@ -17,6 +17,19 @@ public class Demo {
 
         Jogo j = new Jogo(mapa,"xPromate", Dificuldade.FACIL);
 
-        System.out.println(j.getGraph().toString());
-    }
+
+        j.mostrarOpcoes(0);
+        System.out.println("------------------------");
+        j.mostrarOpcoes(2);
+        System.out.println("------------------------");
+        j.mostrarOpcoes(2);
+        System.out.println("------------------------");
+        j.mostrarOpcoes(2);
+        System.out.println("------------------------");
+        j.mostrarOpcoes(99999999);
+
+        //foi até ao exterior
+        //ainda não tira pontuações mas isso penso q vai ser básico
+
+
 }
