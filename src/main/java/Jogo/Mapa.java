@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class Mapa {
 
     public String nome;
-    public String pontos;
+    public int pontos;
     public Aposento[] mapa;
     private ArrayOrderedList<Classificacao> arrayOrderedList;
 
@@ -48,11 +48,11 @@ public class Mapa {
         this.nome = nome;
     }
 
-    public String getPontos() {
+    public int getPontos() {
         return pontos;
     }
 
-    public void setPontos(String pontos) {
+    public void setPontos(int pontos) {
         this.pontos = pontos;
     }
 

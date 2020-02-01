@@ -24,6 +24,9 @@ public class Jogo {
         this.setDificuldadeMultiplicador(dificuldade);
         this.initializeGraph();
         this.localJogador = POSICAO_INICIAL;
+        this.localJogador = "entrada";
+        this.jogador = new Jogador("xPromate");
+        this.jogador.setPontuacao(this.mapa.getPontos());
     }
 
     private void initializeGraph() {
@@ -82,6 +85,7 @@ public class Jogo {
 
         if (opcao < j) {
             this.localJogador = this.graph.getVertex(array[j]).getAposento();
+            this.dano_recebido(j);
         }
 
     }
@@ -96,8 +100,8 @@ public class Jogo {
         return -1;
     }
 
-    public void dano_recebido() {
-
+    private void dano_recebido(int indiceDoVertice) {
+        this.jogador.setPontuacao(this.jogador.getPontuacao()-(this.graph.getVertex(indiceDoVertice).getFantasma()*this.dificuldadeMultiplicador));
     }
 
     public void setDificuldadeMultiplicador(Dificuldade dificuldade) {

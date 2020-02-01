@@ -6,14 +6,11 @@ public class Jogador implements IJogador {
 
     private String nome;
     private int pontuacao;
-    private final int PONTUACAO_INICIAL = 100;
 
     public Jogador(String nome) {
         this.nome = nome;
-        this.pontuacao = PONTUACAO_INICIAL;
     }
 
-    //depois tirar este método
     public void setPontuacao(int pontuacao) {
         this.pontuacao = pontuacao;
     }
@@ -41,7 +38,6 @@ public class Jogador implements IJogador {
         return "Jogador{" +
                 "nome='" + nome + '\'' +
                 ", pontuacao=" + pontuacao +
-                ", PONTUACAO_INICIAL=" + PONTUACAO_INICIAL +
                 '}';
     }
 }
