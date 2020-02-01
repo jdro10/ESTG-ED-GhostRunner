@@ -4,6 +4,8 @@ import Estruturas.InvalidIndexException;
 import Estruturas.Network;
 import Enum.Dificuldade;
 
+import java.util.Iterator;
+
 public class Jogo {
 
     private Mapa mapa;
@@ -50,7 +52,13 @@ public class Jogo {
             }
         }
 
-        this.graph.getShortestPath(entrada, exterior);
+        Iterator it = this.graph.getShortestPath(entrada, exterior);
+
+        while(it.hasNext()){
+            System.out.println(it.next());
+        }
+
+        System.out.println("Peso do caminho mais curto: " + this.graph.shortestPathWeight(entrada, exterior));
     }
 
 
