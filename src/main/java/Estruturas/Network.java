@@ -1,5 +1,7 @@
 package Estruturas;
 
+import java.util.Iterator;
+
 public class Network<T> extends Graph<T> implements NetworkADT<T> {
 
     protected double[][] weightMatrix;
@@ -67,54 +69,45 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
     }
 
     @Override
-    public double shortestPathWeight(T vertex1, T vertex2) {
+    public double shortestPathWeight(T vertex1, T vertex2) throws InvalidIndexException {
         int index1 = super.getIndex(vertex1);
         int index2 = super.getIndex(vertex2);
 
-        if (super.indexIsValid(index1) && super.indexIsValid(index2)) {
-
-
+        if (!super.indexIsValid(index1) || !super.indexIsValid(index2)) {
+            throw new InvalidIndexException("Invalid Index");
         }
 
         return 0;
     }
 
-    public void getShortestPath(T vertex1, T vertex2) {
+    public Iterator<T> getShortestPath(T vertex1, T vertex2) {
         int index1 = super.getIndex(vertex1);
         int index2 = super.getIndex(vertex2);
 
         try {
-            this.dijkstraShortestPath(index1, index2);
+            return this.dijkstraShortestPath(index1, index2);
         } catch (InvalidIndexException e) {
             System.out.println(e);
+            return null;
         }
     }
 
-    public void setOneDirectionWeightPath(T v1, double weight, T v2) {
-        if (weight < 0.0) {
-            throw new IllegalArgumentException("weight must be higher than 0");
-        }
-
-        int posv1 = super.getIndex(v1);
-        int posv2 = super.getIndex(v2);
-
-        this.weightMatrix[posv1][posv2] = weight;
-    }
-
-    private double dijkstraShortestPath(int startIndex, int endIndex) throws InvalidIndexException {
+    protected Iterator<T> dijkstraShortestPath(int startIndex, int endIndex) throws InvalidIndexException {
         if (!super.indexIsValid(startIndex) || !super.indexIsValid(endIndex)) {
             throw new InvalidIndexException("Invalid Index");
         }
 
+        ArrayUnorderedList<T> pathVertices = new ArrayUnorderedList<>();
         int[] distancesToOtherVertices = new int[super.size()];
         boolean[] visitedVertex = new boolean[super.size()];
+        int[] verticesArray = new int[super.size()];
 
         for (int i = 0; i < distancesToOtherVertices.length; i++) {
             distancesToOtherVertices[i] = Integer.MAX_VALUE;
             visitedVertex[i] = false;
         }
 
-        distancesToOtherVertices[startIndex] = 0; //vertice inicial
+        distancesToOtherVertices[startIndex] = 0;
 
         for (int i = 0; i < super.size(); i++) {
             int minVertex = findMinDistance(distancesToOtherVertices, visitedVertex);
@@ -125,14 +118,28 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
                     int dist = (int) (distancesToOtherVertices[minVertex] + this.weightMatrix[minVertex][j]);
                     if (dist < distancesToOtherVertices[j]) {
                         distancesToOtherVertices[j] = dist;
+                        verticesArray[j] = minVertex;
                     }
                 }
             }
         }
 
-        System.out.println(startIndex + " " + distancesToOtherVertices[endIndex]);
+        int j;
+        for (int i = endIndex; i < super.size(); i++) {
+            if (i != 0) {
+                j = i;
+                do {
+                    j = verticesArray[j];
+                    pathVertices.addToFront(super.vertices[j]);
+                } while (j != 0);
+            }
+        }
 
-        return distancesToOtherVertices[endIndex];
+        if (visitedVertex[endIndex]) {
+            pathVertices.addToRear(super.vertices[endIndex]);
+        }
+
+        return pathVertices.iterator();
     }
 
     private int findMinDistance(int[] distance, boolean[] visitedVertex) {
@@ -147,5 +154,16 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         }
 
         return minIndex;
+    }
+
+    public void setOneDirectionWeightPath(T v1, double weight, T v2) {
+        if (weight < 0.0) {
+            throw new IllegalArgumentException("weight must be higher than 0");
+        }
+
+        int posv1 = super.getIndex(v1);
+        int posv2 = super.getIndex(v2);
+
+        this.weightMatrix[posv1][posv2] = weight;
     }
 }
