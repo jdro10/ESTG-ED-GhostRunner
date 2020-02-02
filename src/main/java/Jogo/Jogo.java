@@ -70,14 +70,26 @@ public class Jogo {
         return false;
     }
 
-    public void mostrarOpcoes(int opcao) {
+    public void mostrarHipoteses(){
+        int index = this.mostrarIndiceDivisao();
+        int j = 0;
+
+        for(int i = 0 ; i < this.graph.size() ; i++){
+            if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
+                System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
+                j++;
+            }
+        }
+    }
+
+    public void escolheOpcoes(int opcao) {
         int index = this.mostrarIndiceDivisao();
         int j = 0;
         int[] array = new int[this.graph.size()];
 
         for (int i = 0; i < this.graph.size(); i++) {
             if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
-                System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
+                //System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
                 j++;
                 array[j] = i;
             }

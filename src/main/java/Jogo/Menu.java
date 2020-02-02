@@ -115,9 +115,11 @@ public class Menu {
         BufferedReader readerPosicao = new BufferedReader(this.inputStreamReader);
         String pos = null;
 
-        jogo.mostrarOpcoes(0);
+        //jogo.mostrarOpcoes(999999);
+
 
         while (true) {
+            jogo.mostrarHipoteses();
             System.out.println("\nIntroduza o próximo movimento: ");
 
             try {
