@@ -129,7 +129,7 @@ public class Menu {
                 System.out.println(e);
             }
 
-            jogo.mostrarOpcoes(Integer.parseInt(pos));
+            jogo.escolheOpcoes(Integer.parseInt(pos));
         }
     }
 }
