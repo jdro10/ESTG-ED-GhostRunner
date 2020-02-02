@@ -1,34 +1,50 @@
 package Demo;
 
 import Estruturas.InvalidIndexException;
+import Jogo.Jogo;
 import Jogo.Menu;
+import Jogo.Mapa;
+import Enum.Dificuldade;
 
 public class Demo {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InvalidIndexException {
 
+        /*
         Menu menu = new Menu();
 
         try {
             menu.menuPrincipal();
         } catch (InvalidIndexException e) {
             System.out.println(e);
-        }
+        }*/
 
-        /*
-        j.mostrarOpcoes(0);
+        Mapa m = new Mapa();
+        m.lerJson();
+
+        Jogo j = new Jogo(m, Dificuldade.BASICO);
+
+
+        j.mostrarHipoteses();
+        System.out.println(j.getLocalJogador());
+        j.escolheOpcoes(0);
         System.out.println("------------------------");
-        j.mostrarOpcoes(2);
+
+        j.mostrarHipoteses();
+        System.out.println(j.getLocalJogador());
+        j.escolheOpcoes(0);
         System.out.println("------------------------");
-        j.mostrarOpcoes(2);
+
+        j.mostrarHipoteses();
+        System.out.println(j.getLocalJogador());
+        //j.escolheOpcoes();
         System.out.println("------------------------");
-        j.mostrarOpcoes(2);
-        System.out.println("------------------------");
-        j.mostrarOpcoes(99999999);
+
+        j.mostrarHipoteses();
 
         //foi até ao exterior
         //ainda não tira pontuações mas isso penso q vai ser básico
-        */
+
 
     }
 

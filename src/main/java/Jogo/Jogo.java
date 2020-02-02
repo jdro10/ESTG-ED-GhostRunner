@@ -29,6 +29,10 @@ public class Jogo {
         this.jogador.setPontuacao(this.mapa.getPontos());
     }
 
+    public String getLocalJogador(){
+        return localJogador;
+    }
+
     private void initializeGraph() {
         this.entrada = new Aposento("entrada", 0, null);
         this.exterior = new Aposento("exterior", 0, null);
@@ -70,22 +74,33 @@ public class Jogo {
         return false;
     }
 
-    public void mostrarOpcoes(int opcao) {
+    public void mostrarHipoteses(){
+        int index = this.mostrarIndiceDivisao();
+        int j = 0;
+
+        for(int i = 0 ; i < this.graph.size() ; i++){
+            if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
+                System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
+                j++;
+            }
+        }
+    }
+
+    public void escolheOpcoes(int opcao) {
         int index = this.mostrarIndiceDivisao();
         int j = 0;
         int[] array = new int[this.graph.size()];
 
         for (int i = 0; i < this.graph.size(); i++) {
             if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
-                System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
                 j++;
                 array[j] = i;
             }
         }
 
-        if (opcao < j) {
-            this.localJogador = this.graph.getVertex(array[j]).getAposento();
-            this.dano_recebido(j);
+        if (opcao <= j) {
+            this.localJogador = this.graph.getVertex(array[opcao+1]).getAposento();
+            this.dano_recebido(array[j]);
         }
 
     }
