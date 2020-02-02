@@ -91,15 +91,15 @@ public class Jogo {
         int j = 0;
         int[] array = new int[this.graph.size()];
 
-        for (int i = 0; i < this.graph.size(); i++) {
+        for (int i  = 0; i < this.graph.size(); i++) {
             if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
-                j++;
                 array[j] = i;
+                j++;
             }
         }
 
         if (opcao <= j) {
-            this.localJogador = this.graph.getVertex(array[opcao+1]).getAposento();
+            this.localJogador = this.graph.getVertex(array[opcao]).getAposento();
             this.dano_recebido(array[j]);
         }
 
