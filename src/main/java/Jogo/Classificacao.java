@@ -9,16 +9,17 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class ClassificacaoParaJSON {
+public class Classificacao {
 
     private String nomeMapa;
     private Jogador[] jogadores;
+    private final int DEFAULT_CAPACITY = 5;
     private int numeroJogadores;
 
-    public ClassificacaoParaJSON(String nomeMapa) {
+    public Classificacao(String nomeMapa) {
         this.numeroJogadores = 0;
         this.nomeMapa = nomeMapa;
-        this.jogadores = new Jogador[10];
+        this.jogadores = new Jogador[DEFAULT_CAPACITY];
     }
 
     public void lerClassificacaoJSON() throws IOException {
@@ -26,18 +27,17 @@ public class ClassificacaoParaJSON {
 
         Reader reader = Files.newBufferedReader(Paths.get("./Classificacoes/" + this.nomeMapa + ".json"));
 
-        ClassificacaoParaJSON classificacao = gson.fromJson(reader, ClassificacaoParaJSON.class);
+        Classificacao classificacao = gson.fromJson(reader, Classificacao.class);
 
         this.nomeMapa = classificacao.getNomeMapa();
         this.jogadores = classificacao.getJogadores();
         this.numeroJogadores = classificacao.getNumeroJogadores();
 
-        System.out.println(this.toString());
-
         reader.close();
     }
 
     public void guardarClassificaoJSON() throws IOException {
+
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
 
@@ -52,6 +52,10 @@ public class ClassificacaoParaJSON {
     }
 
     public void adicionarJogadores(Jogador jogador) {
+        if (this.jogadores.length == this.numeroJogadores) {
+            expandCapacity();
+        }
+
         this.jogadores[this.numeroJogadores] = jogador;
         this.numeroJogadores++;
     }
@@ -66,5 +70,19 @@ public class ClassificacaoParaJSON {
 
     public int getNumeroJogadores() {
         return numeroJogadores;
+    }
+
+    public Jogador getJogador(int index) {
+        return this.jogadores[index];
+    }
+
+    private void expandCapacity() {
+        Jogador[] novoArray = new Jogador[this.jogadores.length * 2];
+
+        for (int i = 0; i < this.jogadores.length; i++) {
+            novoArray[i] = this.jogadores[i];
+        }
+
+        this.jogadores = novoArray;
     }
 }

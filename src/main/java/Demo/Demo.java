@@ -1,9 +1,9 @@
 package Demo;
 
 import Estruturas.InvalidIndexException;
+import Estruturas.NoComparableException;
 import Exceptions.MapaException;
-import Jogo.ClassificacaoParaJSON;
-import Jogo.Jogador;
+import Jogo.Menu;
 
 import java.io.IOException;
 
@@ -11,17 +11,13 @@ public class Demo {
 
     public static void main(String[] args) throws InvalidIndexException, MapaException, IOException {
 
-        Jogador jogador = new Jogador("Jorge2");
-        Jogador jogador2 = new Jogador("Jorge3");
+        Menu menu = new Menu();
 
-        ClassificacaoParaJSON json = new ClassificacaoParaJSON("Teste");
-        json.adicionarJogadores(jogador);
-        json.adicionarJogadores(jogador2);
-        json.guardarClassificaoJSON();
-
-
-
-
+        try{
+            menu.menuPrincipal();
+        } catch (InvalidIndexException | MapaException | NoComparableException e){
+            System.out.println(e);
+        }
     }
 
 }

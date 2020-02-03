@@ -2,7 +2,7 @@ package Jogo;
 
 import Interfaces.IJogador;
 
-public class Jogador implements IJogador {
+public class Jogador implements IJogador, Comparable<Jogador> {
 
     private String nome;
     private int pontuacao;
@@ -31,6 +31,11 @@ public class Jogador implements IJogador {
     @Override
     public void danoRecebido() {
 
+    }
+
+    @Override
+    public int compareTo(Jogador j) {
+        return (j.getPontuacao() - this.pontuacao);
     }
 
     @Override
