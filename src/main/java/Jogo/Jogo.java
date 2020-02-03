@@ -40,11 +40,11 @@ public class Jogo {
             throw new MapaException("mapa inválido");
         }
 
-        if(mapa.temLigacaoEntrada()){
+        if(!mapa.temLigacaoEntrada()){
             throw new MapaException("mapa inválido");
         }
 
-        if(mapa.temLigacaoExterior()){
+        if(!mapa.temLigacaoExterior()){
             throw new MapaException("mapa inválido");
         }
 
