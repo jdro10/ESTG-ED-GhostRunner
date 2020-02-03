@@ -2,52 +2,26 @@ package Demo;
 
 import Estruturas.InvalidIndexException;
 import Exceptions.MapaException;
-import Jogo.Jogo;
-import Jogo.Menu;
-import Jogo.Mapa;
-import Enum.Dificuldade;
+import Jogo.ClassificacaoParaJSON;
+import Jogo.Jogador;
+
+import java.io.IOException;
 
 public class Demo {
 
-    public static void main(String[] args) throws InvalidIndexException, MapaException {
+    public static void main(String[] args) throws InvalidIndexException, MapaException, IOException {
+
+        Jogador jogador = new Jogador("Jorge2");
+        Jogador jogador2 = new Jogador("Jorge3");
+
+        ClassificacaoParaJSON json = new ClassificacaoParaJSON("Teste");
+        json.adicionarJogadores(jogador);
+        json.adicionarJogadores(jogador2);
+        json.guardarClassificaoJSON();
 
 
-        Menu menu = new Menu();
-
-        try {
-            menu.menuPrincipal();
-        } catch (InvalidIndexException e) {
-            System.out.println(e);
-        }
-
-        /*
-        Mapa m = new Mapa();
-        m.lerJson("mapa.json");
-
-        Jogo j = new Jogo(m, Dificuldade.BASICO);
 
 
-        j.mostrarHipoteses();
-        System.out.println(j.getLocalJogador());
-        j.escolheOpcoes(0);
-        System.out.println("------------------------");
-
-        j.mostrarHipoteses();
-        System.out.println(j.getLocalJogador());
-        j.escolheOpcoes(0);
-        System.out.println("------------------------");
-
-        j.mostrarHipoteses();
-        System.out.println(j.getLocalJogador());
-        //j.escolheOpcoes();
-        System.out.println("------------------------");
-
-        j.mostrarHipoteses();
-
-        //foi até ao exterior
-        //ainda não tira pontuações mas isso penso q vai ser básico
-
-        */
     }
 
 }

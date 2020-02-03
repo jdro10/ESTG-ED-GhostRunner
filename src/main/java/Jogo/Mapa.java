@@ -13,11 +13,6 @@ public class Mapa {
     public String nome;
     public int pontos;
     public Aposento[] mapa;
-    private ArrayOrderedList<Classificacao> arrayOrderedList;
-
-    public Mapa() {
-        this.arrayOrderedList = new ArrayOrderedList<>();
-    }
 
     public void lerJson(String s) {
         try {
@@ -72,17 +67,6 @@ public class Mapa {
         return this.mapa[i];
     }
 
-    public void ordenaClassificacaoMapa(Classificacao classificacao) throws NoComparableException {
-        this.arrayOrderedList.add(classificacao);
-    }
-  
-    @Override
-    public String toString() {
-        return "Jogo.Mapa{" +
-                "nome='" + nome + '\'' +
-                this.arrayOrderedList.toString() +
-                '}';
-    }
 
     public boolean temEntradaOuExterior(){
         for(Aposento aposento : mapa){
