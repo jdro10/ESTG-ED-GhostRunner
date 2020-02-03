@@ -3,6 +3,7 @@ package Jogo;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.File;
 
 import Enum.Dificuldade;
 import Estruturas.InvalidIndexException;
@@ -54,14 +55,22 @@ public class Menu {
     }
 
     private void modoSimulacao() throws InvalidIndexException, MapaException {
-        BufferedReader readerDificuldade = new BufferedReader(this.inputStreamReader);
+        BufferedReader reader = new BufferedReader(this.inputStreamReader);
         Mapa mapa = new Mapa();
         String dificuldade = null;
         Dificuldade dificuldadeEscolhida = null;
+        String mapaEscolhido = null;
 
         try {
             System.out.println("Introduza a dificuldade: ");
-            dificuldade = readerDificuldade.readLine();
+            dificuldade = reader.readLine();
+            File file = new File("./mapExample/");
+            File[] arquivos = file.listFiles();
+            int j = 0;
+            for (File fileTmp : arquivos) {
+                System.out.println(fileTmp.getName() + " -> Opcao: " + j++);
+            }
+            mapaEscolhido = arquivos[Integer.parseInt(reader.readLine())].getName();
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -74,7 +83,8 @@ public class Menu {
             dificuldadeEscolhida = Dificuldade.DIFICIL;
         }
 
-        mapa.lerJson("mapa.json");
+
+        mapa.lerJson(mapaEscolhido);
 
         Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
 
@@ -82,17 +92,25 @@ public class Menu {
     }
 
     private void modoManual() throws InvalidIndexException, MapaException {
-        BufferedReader readerDificuldade = new BufferedReader(this.inputStreamReader);
+        BufferedReader reader = new BufferedReader(this.inputStreamReader);
         Mapa mapa = new Mapa();
         String dificuldade = null;
         String nomeJogador = null;
         Dificuldade dificuldadeEscolhida = null;
+        String mapaEscolhido = null;
 
         try {
             System.out.println("Introduza o seu nome: ");
-            nomeJogador = readerDificuldade.readLine();
+            nomeJogador = reader.readLine();
             System.out.println("Introduza a dificuldade: ");
-            dificuldade = readerDificuldade.readLine();
+            dificuldade = reader.readLine();
+            File file = new File("./mapExample/");
+            File[] arquivos = file.listFiles();
+            int j = 0;
+            for (File fileTmp : arquivos) {
+                System.out.println(fileTmp.getName() + " -> Opcao: " + j++);
+            }
+            mapaEscolhido = arquivos[Integer.parseInt(reader.readLine())].getName();
 
         } catch (IOException e) {
             System.out.println(e);
@@ -106,7 +124,7 @@ public class Menu {
             dificuldadeEscolhida = Dificuldade.DIFICIL;
         }
 
-        mapa.lerJson("mapa.json");
+        mapa.lerJson(mapaEscolhido);
 
         Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
         Jogador jogador = new Jogador(nomeJogador);

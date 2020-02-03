@@ -11,15 +11,16 @@ public class Demo {
 
     public static void main(String[] args) throws InvalidIndexException, MapaException {
 
-        /*
+
         Menu menu = new Menu();
 
         try {
             menu.menuPrincipal();
         } catch (InvalidIndexException e) {
             System.out.println(e);
-        }*/
+        }
 
+        /*
         Mapa m = new Mapa();
         m.lerJson("mapa.json");
 
@@ -46,7 +47,7 @@ public class Demo {
         //foi até ao exterior
         //ainda não tira pontuações mas isso penso q vai ser básico
 
-
+        */
     }
 
 }
