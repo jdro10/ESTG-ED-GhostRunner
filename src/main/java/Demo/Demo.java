@@ -1,6 +1,7 @@
 package Demo;
 
 import Estruturas.InvalidIndexException;
+import Exceptions.MapaException;
 import Jogo.Jogo;
 import Jogo.Menu;
 import Jogo.Mapa;
@@ -8,7 +9,7 @@ import Enum.Dificuldade;
 
 public class Demo {
 
-    public static void main(String[] args) throws InvalidIndexException {
+    public static void main(String[] args) throws InvalidIndexException, MapaException {
 
         /*
         Menu menu = new Menu();
@@ -20,7 +21,7 @@ public class Demo {
         }*/
 
         Mapa m = new Mapa();
-        m.lerJson();
+        m.lerJson("mapa.json");
 
         Jogo j = new Jogo(m, Dificuldade.BASICO);
 

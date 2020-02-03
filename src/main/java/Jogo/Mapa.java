@@ -19,11 +19,11 @@ public class Mapa {
         this.arrayOrderedList = new ArrayOrderedList<>();
     }
 
-    public void lerJson() {
+    public void lerJson(String s) {
         try {
             Gson gson = new Gson();
 
-            String json = "./mapExample/mapa.json";
+            String json = "./mapExample/" + s;
 
             Reader reader = Files.newBufferedReader(Paths.get(json));
 
@@ -82,5 +82,35 @@ public class Mapa {
                 "nome='" + nome + '\'' +
                 this.arrayOrderedList.toString() +
                 '}';
+    }
+
+    public boolean temEntradaOuExterior(){
+        for(Aposento aposento : mapa){
+            if(aposento.getAposento().equals("entrada") || aposento.getAposento().equals("exterior")){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean temLigacaoEntrada(){
+        for(Aposento aposento : mapa){
+            if(aposento.getLigacoes().contains("entrada")){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean temLigacaoExterior(){
+        for(Aposento aposento : mapa){
+            if(aposento.getLigacoes().contains("exterior")){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

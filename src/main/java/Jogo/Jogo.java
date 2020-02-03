@@ -3,6 +3,7 @@ package Jogo;
 import Estruturas.InvalidIndexException;
 import Estruturas.Network;
 import Enum.Dificuldade;
+import Exceptions.MapaException;
 
 import java.util.Iterator;
 
@@ -18,7 +19,7 @@ public class Jogo {
     private Aposento exterior;
     private final String POSICAO_INICIAL = "entrada";
 
-    public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException {
+    public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException, MapaException {
         this.mapa = mapa;
         this.graph = new NetworkGame();
         this.setDificuldadeMultiplicador(dificuldade);
@@ -33,7 +34,21 @@ public class Jogo {
         return localJogador;
     }
 
-    private void initializeGraph() {
+    private void initializeGraph() throws MapaException {
+
+        if(mapa.temEntradaOuExterior()){
+            throw new MapaException("mapa inválido");
+        }
+
+        if(mapa.temLigacaoEntrada()){
+            throw new MapaException("mapa inválido");
+        }
+
+        if(mapa.temLigacaoExterior()){
+            throw new MapaException("mapa inválido");
+        }
+
+
         this.entrada = new Aposento("entrada", 0, null);
         this.exterior = new Aposento("exterior", 0, null);
 
@@ -91,15 +106,15 @@ public class Jogo {
         int j = 0;
         int[] array = new int[this.graph.size()];
 
-        for (int i = 0; i < this.graph.size(); i++) {
+        for (int i  = 0; i < this.graph.size(); i++) {
             if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
-                j++;
                 array[j] = i;
+                j++;
             }
         }
 
         if (opcao <= j) {
-            this.localJogador = this.graph.getVertex(array[opcao+1]).getAposento();
+            this.localJogador = this.graph.getVertex(array[opcao]).getAposento();
             this.dano_recebido(array[j]);
         }
 

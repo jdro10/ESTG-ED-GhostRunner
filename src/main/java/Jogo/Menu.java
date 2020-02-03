@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import Enum.Dificuldade;
 import Estruturas.InvalidIndexException;
+import Exceptions.MapaException;
 
 public class Menu {
 
@@ -15,7 +16,7 @@ public class Menu {
         this.inputStreamReader = new InputStreamReader(System.in);
     }
 
-    public void menuPrincipal() throws InvalidIndexException {
+    public void menuPrincipal() throws InvalidIndexException, MapaException {
         BufferedReader reader = new BufferedReader(this.inputStreamReader);
         String escolha = null;
 
@@ -52,7 +53,7 @@ public class Menu {
         } while (!escolha.equals("0"));
     }
 
-    private void modoSimulacao() throws InvalidIndexException {
+    private void modoSimulacao() throws InvalidIndexException, MapaException {
         BufferedReader readerDificuldade = new BufferedReader(this.inputStreamReader);
         Mapa mapa = new Mapa();
         String dificuldade = null;
@@ -73,14 +74,14 @@ public class Menu {
             dificuldadeEscolhida = Dificuldade.DIFICIL;
         }
 
-        mapa.lerJson();
+        mapa.lerJson("mapa.json");
 
         Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
 
         jogo.simulacaoJogo();
     }
 
-    private void modoManual() throws InvalidIndexException {
+    private void modoManual() throws InvalidIndexException, MapaException {
         BufferedReader readerDificuldade = new BufferedReader(this.inputStreamReader);
         Mapa mapa = new Mapa();
         String dificuldade = null;
@@ -105,7 +106,7 @@ public class Menu {
             dificuldadeEscolhida = Dificuldade.DIFICIL;
         }
 
-        mapa.lerJson();
+        mapa.lerJson("mapa.json");
 
         Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
         Jogador jogador = new Jogador(nomeJogador);
