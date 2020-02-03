@@ -1,53 +1,23 @@
 package Demo;
 
 import Estruturas.InvalidIndexException;
+import Estruturas.NoComparableException;
 import Exceptions.MapaException;
-import Jogo.Jogo;
 import Jogo.Menu;
-import Jogo.Mapa;
-import Enum.Dificuldade;
+
+import java.io.IOException;
 
 public class Demo {
 
-    public static void main(String[] args) throws InvalidIndexException, MapaException {
-
+    public static void main(String[] args) throws InvalidIndexException, MapaException, IOException {
 
         Menu menu = new Menu();
 
-        try {
+        try{
             menu.menuPrincipal();
-        } catch (InvalidIndexException e) {
+        } catch (InvalidIndexException | MapaException | NoComparableException e){
             System.out.println(e);
         }
-
-        /*
-        Mapa m = new Mapa();
-        m.lerJson("mapa.json");
-
-        Jogo j = new Jogo(m, Dificuldade.BASICO);
-
-
-        j.mostrarHipoteses();
-        System.out.println(j.getLocalJogador());
-        j.escolheOpcoes(0);
-        System.out.println("------------------------");
-
-        j.mostrarHipoteses();
-        System.out.println(j.getLocalJogador());
-        j.escolheOpcoes(0);
-        System.out.println("------------------------");
-
-        j.mostrarHipoteses();
-        System.out.println(j.getLocalJogador());
-        //j.escolheOpcoes();
-        System.out.println("------------------------");
-
-        j.mostrarHipoteses();
-
-        //foi até ao exterior
-        //ainda não tira pontuações mas isso penso q vai ser básico
-
-        */
     }
 
 }
