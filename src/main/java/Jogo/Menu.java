@@ -113,7 +113,7 @@ public class Menu {
             File[] arquivos = file.listFiles();
             int j = 0;
             for (File fileTmp : arquivos) {
-                System.out.println(fileTmp.getName() + " -> Opcao: " + j++);
+                System.out.println(fileTmp.getName().substring(0,fileTmp.getName().length()-5) + " -> Opcao: " + j++);
             }
             int opcao = Integer.parseInt(reader.readLine());
             if(opcao <= j){
