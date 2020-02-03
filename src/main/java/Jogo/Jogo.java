@@ -1,7 +1,6 @@
 package Jogo;
 
 import Estruturas.InvalidIndexException;
-import Estruturas.Network;
 import Enum.Dificuldade;
 import Exceptions.MapaException;
 
@@ -25,8 +24,10 @@ public class Jogo {
         this.setDificuldadeMultiplicador(dificuldade);
         this.initializeGraph();
         this.posicaoJogador = POSICAO_DE_INICIO;
-        this.jogador = new Jogador("xPromate");
-        this.jogador.setPontuacao(this.mapa.getPontos());
+    }
+
+    public int getPosicaoJogador() {
+        return posicaoJogador;
     }
 
     private void initializeGraph() throws MapaException {
@@ -95,6 +96,10 @@ public class Jogo {
         }
     }
 
+    public int tamanhoMapa(){
+        return this.graph.size();
+    }
+
     public void escolheOpcoes(int opcao) {
         int j = 0;
         int[] array = new int[this.graph.size()];
@@ -111,6 +116,10 @@ public class Jogo {
             this.dano_recebido(array[opcao]);
         }
 
+    }
+
+    public int getVidaJogador(){
+        return this.jogador.getPontuacao();
     }
 
     private void dano_recebido(int indiceDoVertice) {
@@ -131,5 +140,6 @@ public class Jogo {
 
     public void setJogador(Jogador jogador){
         this.jogador = jogador;
+        this.jogador.setPontuacao(this.mapa.getPontos());
     }
 }

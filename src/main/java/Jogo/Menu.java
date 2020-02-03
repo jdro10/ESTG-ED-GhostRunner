@@ -144,11 +144,17 @@ public class Menu {
 
         BufferedReader readerPosicao = new BufferedReader(this.inputStreamReader);
         String pos = null;
+        boolean perdeu = false;
 
         //jogo.mostrarOpcoes(999999);
 
+        while (jogo.getPosicaoJogador() != jogo.tamanhoMapa()-1 ) {
 
-        while (true) {
+            if(jogo.getVidaJogador() <= 0){
+                perdeu = true;
+                break;
+            }
+
             jogo.mostrarHipoteses();
             System.out.println("\nIntroduza o próximo movimento: ");
 
@@ -161,5 +167,12 @@ public class Menu {
 
             jogo.escolheOpcoes(Integer.parseInt(pos));
         }
+
+        if(perdeu){
+            System.out.println("Perdeste, tenta outra vez");
+        }else{
+            System.out.println(jogador.getNome()  +" -> PARABÉNS, ÉS O MAIOR ! \n\n\n");
+        }
+
     }
 }
