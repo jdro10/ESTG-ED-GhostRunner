@@ -70,7 +70,12 @@ public class Menu {
             for (File fileTmp : arquivos) {
                 System.out.println(fileTmp.getName() + " -> Opcao: " + j++);
             }
-            mapaEscolhido = arquivos[Integer.parseInt(reader.readLine())].getName();
+            int opcao = Integer.parseInt(reader.readLine());
+            if(opcao <= j){
+                mapaEscolhido = arquivos[opcao].getName();
+            }else{
+                mapaEscolhido = arquivos[0].getName();
+            }
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -110,7 +115,13 @@ public class Menu {
             for (File fileTmp : arquivos) {
                 System.out.println(fileTmp.getName() + " -> Opcao: " + j++);
             }
-            mapaEscolhido = arquivos[Integer.parseInt(reader.readLine())].getName();
+            int opcao = Integer.parseInt(reader.readLine());
+            if(opcao <= j){
+                mapaEscolhido = arquivos[opcao].getName();
+            }else{
+                mapaEscolhido = arquivos[0].getName();
+            }
+
 
         } catch (IOException e) {
             System.out.println(e);

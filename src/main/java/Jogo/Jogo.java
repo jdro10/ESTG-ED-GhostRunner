@@ -12,26 +12,21 @@ public class Jogo {
     private Mapa mapa;
     private NetworkGame<Aposento> graph;
     private Jogador jogador;
-    private String localJogador;
     private Dificuldade dificuldade;
     private int dificuldadeMultiplicador;
     private Aposento entrada;
     private Aposento exterior;
-    private final String POSICAO_INICIAL = "entrada";
+    private final int POSICAO_DE_INICIO = 0;
+    private int posicaoJogador;
 
     public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException, MapaException {
         this.mapa = mapa;
         this.graph = new NetworkGame();
         this.setDificuldadeMultiplicador(dificuldade);
         this.initializeGraph();
-        this.localJogador = POSICAO_INICIAL;
-        this.localJogador = "entrada";
+        this.posicaoJogador = POSICAO_DE_INICIO;
         this.jogador = new Jogador("xPromate");
         this.jogador.setPontuacao(this.mapa.getPontos());
-    }
-
-    public String getLocalJogador(){
-        return localJogador;
     }
 
     private void initializeGraph() throws MapaException {
@@ -90,11 +85,10 @@ public class Jogo {
     }
 
     public void mostrarHipoteses(){
-        int index = this.mostrarIndiceDivisao();
         int j = 0;
 
         for(int i = 0 ; i < this.graph.size() ; i++){
-            if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
+            if (this.graph.getAdjMatrixIndex(posicaoJogador, i) && posicaoJogador != i) {
                 System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
                 j++;
             }
@@ -102,32 +96,21 @@ public class Jogo {
     }
 
     public void escolheOpcoes(int opcao) {
-        int index = this.mostrarIndiceDivisao();
         int j = 0;
         int[] array = new int[this.graph.size()];
 
         for (int i  = 0; i < this.graph.size(); i++) {
-            if (this.graph.getAdjMatrixIndex(index, i) && index != i) {
+            if (this.graph.getAdjMatrixIndex(posicaoJogador, i) && posicaoJogador != i) {
                 array[j] = i;
                 j++;
             }
         }
 
         if (opcao <= j) {
-            this.localJogador = this.graph.getVertex(array[opcao]).getAposento();
-            this.dano_recebido(array[j]);
+            this.posicaoJogador = array[opcao];
+            this.dano_recebido(array[opcao]);
         }
 
-    }
-
-    public int mostrarIndiceDivisao() {
-        for (int i = 0; i < this.graph.size(); i++) {
-            if (this.localJogador.equals(this.graph.getVertex(i).getAposento())) {
-                return i;
-            }
-        }
-
-        return -1;
     }
 
     private void dano_recebido(int indiceDoVertice) {
