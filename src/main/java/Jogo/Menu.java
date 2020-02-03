@@ -98,6 +98,7 @@ public class Menu {
         String nomeJogador = null;
         Dificuldade dificuldadeEscolhida = null;
         String mapaEscolhido = null;
+        int opcao = 0;
 
         try {
             System.out.println("Introduza o seu nome: ");
@@ -110,7 +111,13 @@ public class Menu {
             for (File fileTmp : arquivos) {
                 System.out.println(fileTmp.getName() + " -> Opcao: " + j++);
             }
-            mapaEscolhido = arquivos[Integer.parseInt(reader.readLine())].getName();
+            opcao = Integer.parseInt(reader.readLine());
+            if(opcao <= j){
+                mapaEscolhido = arquivos[opcao].getName();
+            }else{
+                mapaEscolhido = arquivos[0].getName();
+            }
+
 
         } catch (IOException e) {
             System.out.println(e);
