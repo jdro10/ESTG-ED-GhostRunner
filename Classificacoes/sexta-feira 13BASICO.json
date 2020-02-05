@@ -29,11 +29,14 @@
       "nome": "xpromate",
       "pontuacao": 80
     },
-    null,
+    {
+      "nome": "xpromate",
+      "pontuacao": 80
+    },
     null,
     null
   ],
   "DEFAULT_CAPACITY": 5,
-  "numeroJogadores": 7,
+  "numeroJogadores": 8,
   "dificuldade": "BASICO"
 }

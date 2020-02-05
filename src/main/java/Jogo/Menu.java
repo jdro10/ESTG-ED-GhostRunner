@@ -8,6 +8,7 @@ import java.util.Iterator;
 
 import Enum.Dificuldade;
 import Estruturas.ArrayOrderedList;
+import Estruturas.EmptyException;
 import Estruturas.InvalidIndexException;
 import Estruturas.NoComparableException;
 import Exceptions.MapaException;
@@ -107,12 +108,12 @@ public class Menu {
         try {
             Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
             jogo.simulacaoJogo();
-        } catch (MapaException e) {
+        } catch (MapaException | EmptyException e) {
             System.out.println("Mapa escolhido é inválido! Por favor introduza um mapa válido.");
         }
     }
 
-    private void modoManual() throws InvalidIndexException, MapaException, IOException {
+    private void modoManual() throws InvalidIndexException, IOException {
         BufferedReader reader = new BufferedReader(this.inputStreamReader);
         Mapa mapa = new Mapa();
         String dificuldade = null;
@@ -168,7 +169,15 @@ public class Menu {
         } catch (IOException e) {
         }
 
-        Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
+        Jogo jogo = null;
+
+        try{
+            jogo = new Jogo(mapa, dificuldadeEscolhida);
+        } catch (EmptyException | MapaException e) {
+            System.out.println("Mapa escolhido é inválido! Por favor introduza um mapa válido.");
+            return;
+        }
+
         Jogador jogador = new Jogador(nomeJogador);
 
         jogo.setJogador(jogador);

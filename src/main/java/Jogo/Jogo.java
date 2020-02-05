@@ -1,5 +1,6 @@
 package Jogo;
 
+import Estruturas.EmptyException;
 import Estruturas.InvalidIndexException;
 import Enum.Dificuldade;
 import Exceptions.MapaException;
@@ -17,7 +18,7 @@ public class Jogo {
     private Aposento exterior;
     private int posicaoJogador;
 
-    public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException, MapaException {
+    public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException, MapaException, EmptyException {
         this.mapa = mapa;
         this.graph = new NetworkGame();
         this.setDificuldadeMultiplicador(dificuldade);
@@ -32,7 +33,7 @@ public class Jogo {
      * método responsável por ler o mapa e  adicionar os vértices ao grafo
      * @throws MapaException
      */
-    private void initializeGraph() throws MapaException {
+    private void initializeGraph() throws MapaException, EmptyException {
         if (mapa.temEntradaOuExterior()) {
             throw new MapaException("mapa inválido");
         }
@@ -63,6 +64,10 @@ public class Jogo {
                     this.graph.setOneDirectionWeightPath(this.graph.getVertex(i), this.graph.getVertex(j).getFantasma(), this.graph.getVertex(j));
                 }
             }
+        }
+
+        if(!this.graph.isConnected()){
+            throw new MapaException("mapa inválido");
         }
     }
 
