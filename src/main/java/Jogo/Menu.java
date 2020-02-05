@@ -193,26 +193,38 @@ public class Menu {
             jogo.escolheOpcoes(Integer.parseInt(pos));
         }
 
-        classificacao.adicionarJogadores(jogador);
-        classificacao.guardarClassificaoJSON();
+
 
         if (perdeu) {
             System.out.println("Perdeste, tenta outra vez!");
         } else {
+            classificacao.adicionarJogadores(jogador);
+            classificacao.guardarClassificaoJSON();
             System.out.println(jogador.getNome() + " -> Sucesso, chegou ao exterior!\n\n\n");
         }
-
     }
 
     private void classificacoes() throws IOException, NoComparableException {
         ArrayOrderedList<Jogador> orderedListJogadores = new ArrayOrderedList<Jogador>();
         BufferedReader reader = new BufferedReader(this.inputStreamReader);
-        String nomeMapa = null;
+        String mapaEscolhido = null;
 
         System.out.println("Introduza o nome do mapa que pretende ver as classificações: ");
-        nomeMapa = reader.readLine();
 
-        Classificacao classificacao = new Classificacao(nomeMapa);
+        File file = new File("./classificacoes/");
+        File[] arquivos = file.listFiles();
+        int j = 0;
+        for (File fileTmp : arquivos) {
+            System.out.println(fileTmp.getName().substring(0, fileTmp.getName().length() - 5) + " -> Opção: " + j++);
+        }
+        int opcao = Integer.parseInt(reader.readLine());
+        if (opcao <= j) {
+            mapaEscolhido = arquivos[opcao].getName();
+        } else {
+            mapaEscolhido = arquivos[0].getName();
+        }
+
+        Classificacao classificacao = new Classificacao(mapaEscolhido.substring(0, mapaEscolhido.length()-5));
 
         try {
             classificacao.lerClassificacaoJSON();
