@@ -37,11 +37,10 @@ public class Classificacao {
     }
 
     public void guardarClassificaoJSON() throws IOException {
-
         GsonBuilder builder = new GsonBuilder();
-        builder.setPrettyPrinting();
-
         Gson gson = builder.create();
+
+        builder.setPrettyPrinting();
 
         FileWriter writer = new FileWriter("./Classificacoes/" + this.nomeMapa + ".json");
 
