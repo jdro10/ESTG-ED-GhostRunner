@@ -156,6 +156,7 @@ public class Menu {
             }
         } catch (IOException | NumberFormatException e) {
             System.out.println("Mapa escolhido é inválido! Por favor introduza um mapa válido.");
+            return;
         }
 
         mapa.lerJson(mapaEscolhido);
@@ -165,7 +166,6 @@ public class Menu {
         try {
             classificacao.carregarClassificacaoJSON();
         } catch (IOException e) {
-            System.out.println(e);
         }
 
         Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
@@ -217,12 +217,24 @@ public class Menu {
         System.out.println("Introduza o nome do mapa que pretende ver as classificações: ");
 
         File file = new File("./classificacoes/");
+
         File[] arquivos = file.listFiles();
+
         int j = 0;
+
         for (File fileTmp : arquivos) {
             System.out.println(fileTmp.getName().substring(0, fileTmp.getName().length() - 5) + " -> Opção: " + j++);
         }
-        int opcao = Integer.parseInt(reader.readLine());
+
+        int opcao = 0;
+
+        try {
+            opcao = Integer.parseInt(reader.readLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Erro, opção introduzida inválida! Tente novamente.");
+            return;
+        }
+
         if (opcao <= j) {
             mapaEscolhido = arquivos[opcao].getName();
         } else {
@@ -237,8 +249,6 @@ public class Menu {
             System.out.println("Erro na leitura do ficheiro" + e);
             return;
         }
-
-        System.out.println(classificacao.getJogadores().length);
 
         for (int i = 0; i < classificacao.getJogadores().length; i++) {
             if (classificacao.getJogador(i) != null) {

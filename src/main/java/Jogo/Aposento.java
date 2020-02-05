@@ -20,6 +20,10 @@ public class Aposento {
         return fantasma;
     }
 
+    /**
+     * método responsável os caminhos possíveis deste aposento
+     * @return
+     */
     public String getLigacoes() {
         String s = "";
 
