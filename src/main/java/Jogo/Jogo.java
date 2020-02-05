@@ -15,7 +15,6 @@ public class Jogo {
     private int dificuldadeMultiplicador;
     private Aposento entrada;
     private Aposento exterior;
-    private final int POSICAO_DE_INICIO = 0;
     private int posicaoJogador;
 
     public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException, MapaException {
@@ -23,27 +22,24 @@ public class Jogo {
         this.graph = new NetworkGame();
         this.setDificuldadeMultiplicador(dificuldade);
         this.initializeGraph();
-        this.posicaoJogador = POSICAO_DE_INICIO;
     }
 
     public int getPosicaoJogador() {
-        return posicaoJogador;
+        return this.posicaoJogador;
     }
 
     private void initializeGraph() throws MapaException {
-
-        if(mapa.temEntradaOuExterior()){
+        if (mapa.temEntradaOuExterior()) {
             throw new MapaException("mapa inválido");
         }
 
-        if(!mapa.temLigacaoEntrada()){
+        if (!mapa.temLigacaoEntrada()) {
             throw new MapaException("mapa inválido");
         }
 
-        if(!mapa.temLigacaoExterior()){
+        if (!mapa.temLigacaoExterior()) {
             throw new MapaException("mapa inválido");
         }
-
 
         this.entrada = new Aposento("entrada", 0, null);
         this.exterior = new Aposento("exterior", 0, null);
@@ -54,7 +50,7 @@ public class Jogo {
             this.graph.addVertex(this.mapa.getAposento(i));
         }
 
-        this.graph.addVertex(exterior);
+        this.graph.addVertex(this.exterior);
 
         for (int i = 0; i < this.graph.size(); i++) {
             for (int j = 0; j < this.graph.size(); j++) {
@@ -73,11 +69,10 @@ public class Jogo {
             System.out.println(it.next());
         }
 
-        System.out.println("Peso do caminho mais curto: " + this.graph.shortestPathWeight(entrada, exterior));
+        System.out.println("\nPeso do caminho mais curto: " + this.graph.shortestPathWeight(this.entrada, this.exterior));
     }
 
     public boolean hasEdge(String aposento, int index) {
-
         if (this.graph.getVertex(index).getLigacoes().contains(aposento)) {
             return true;
         }
@@ -85,10 +80,10 @@ public class Jogo {
         return false;
     }
 
-    public void mostrarHipoteses(){
+    public void mostrarHipoteses() {
         int j = 0;
 
-        for(int i = 0 ; i < this.graph.size() ; i++){
+        for (int i = 0; i < this.graph.size(); i++) {
             if (this.graph.getAdjMatrixIndex(posicaoJogador, i) && posicaoJogador != i) {
                 System.out.println(this.graph.getVertex(i).getAposento() + "! opção - " + j);
                 j++;
@@ -96,7 +91,7 @@ public class Jogo {
         }
     }
 
-    public int tamanhoMapa(){
+    public int tamanhoMapa() {
         return this.graph.size();
     }
 
@@ -104,8 +99,8 @@ public class Jogo {
         int j = 0;
         int[] array = new int[this.graph.size()];
 
-        for (int i  = 0; i < this.graph.size(); i++) {
-            if (this.graph.getAdjMatrixIndex(posicaoJogador, i) && posicaoJogador != i) {
+        for (int i = 0; i < this.graph.size(); i++) {
+            if (this.graph.getAdjMatrixIndex(this.posicaoJogador, i) && this.posicaoJogador != i) {
                 array[j] = i;
                 j++;
             }
@@ -118,12 +113,12 @@ public class Jogo {
 
     }
 
-    public int getVidaJogador(){
+    public int getVidaJogador() {
         return this.jogador.getPontuacao();
     }
 
     private void dano_recebido(int indiceDoVertice) {
-        this.jogador.setPontuacao(this.jogador.getPontuacao()-(this.graph.getVertex(indiceDoVertice).getFantasma()*this.dificuldadeMultiplicador));
+        this.jogador.setPontuacao(this.jogador.getPontuacao() - (this.graph.getVertex(indiceDoVertice).getFantasma() * this.dificuldadeMultiplicador));
     }
 
     public void setDificuldadeMultiplicador(Dificuldade dificuldade) {
@@ -138,7 +133,7 @@ public class Jogo {
         }
     }
 
-    public void setJogador(Jogador jogador){
+    public void setJogador(Jogador jogador) {
         this.jogador = jogador;
         this.jogador.setPontuacao(this.mapa.getPontos());
     }

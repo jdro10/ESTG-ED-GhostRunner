@@ -1,8 +1,6 @@
 package Jogo;
 
-import Interfaces.IJogador;
-
-public class Jogador implements IJogador, Comparable<Jogador> {
+public class Jogador implements Comparable<Jogador> {
 
     private String nome;
     private int pontuacao;
@@ -21,16 +19,6 @@ public class Jogador implements IJogador, Comparable<Jogador> {
 
     public int getPontuacao() {
         return pontuacao;
-    }
-
-    @Override
-    public void mover() {
-
-    }
-
-    @Override
-    public void danoRecebido() {
-
     }
 
     @Override

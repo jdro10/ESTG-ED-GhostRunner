@@ -55,11 +55,10 @@ public class Menu {
                     }
                     break;
             }
-
         } while (!escolha.equals("0"));
     }
 
-    private void modoSimulacao() throws InvalidIndexException, MapaException {
+    private void modoSimulacao() throws InvalidIndexException {
         BufferedReader reader = new BufferedReader(this.inputStreamReader);
         Mapa mapa = new Mapa();
         String dificuldade = null;
@@ -71,18 +70,24 @@ public class Menu {
             dificuldade = reader.readLine();
             File file = new File("./mapExample/");
             File[] arquivos = file.listFiles();
+
             int j = 0;
+
             for (File fileTmp : arquivos) {
                 System.out.println(fileTmp.getName() + " -> Opcao: " + j++);
             }
+
             int opcao = Integer.parseInt(reader.readLine());
+
             if (opcao <= j) {
                 mapaEscolhido = arquivos[opcao].getName();
             } else {
                 mapaEscolhido = arquivos[0].getName();
             }
-        } catch (IOException e) {
-            System.out.println(e);
+
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Erro, opção introduzida inválida! Tente novamente.");
+            return;
         }
 
         if (dificuldade.equalsIgnoreCase("BASICO")) {
@@ -91,14 +96,20 @@ public class Menu {
             dificuldadeEscolhida = Dificuldade.NORMAL;
         } else if (dificuldade.equalsIgnoreCase("DIFICIL")) {
             dificuldadeEscolhida = Dificuldade.DIFICIL;
+        } else {
+            System.out.println("\nDificuldade introduzida inválida.");
+            System.out.println("Dificuldade definida como 'BASICO'\n");
+            dificuldadeEscolhida = Dificuldade.BASICO;
         }
-
 
         mapa.lerJson(mapaEscolhido);
 
-        Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
-
-        jogo.simulacaoJogo();
+        try {
+            Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
+            jogo.simulacaoJogo();
+        } catch (MapaException e) {
+            System.out.println("Mapa escolhido é inválido! Por favor introduza um mapa válido.");
+        }
     }
 
     private void modoManual() throws InvalidIndexException, MapaException, IOException {
@@ -114,23 +125,26 @@ public class Menu {
             nomeJogador = reader.readLine();
             System.out.println("Introduza a dificuldade: ");
             dificuldade = reader.readLine();
+
             File file = new File("./mapExample/");
             File[] arquivos = file.listFiles();
+
             int j = 0;
+
             for (File fileTmp : arquivos) {
                 System.out.println(fileTmp.getName().substring(0, fileTmp.getName().length() - 5) + " -> Opção: " + j++);
             }
+
             int opcao = Integer.parseInt(reader.readLine());
+
             if (opcao <= j) {
                 mapaEscolhido = arquivos[opcao].getName();
             } else {
                 mapaEscolhido = arquivos[0].getName();
             }
-
-        } catch (IOException e) {
-            System.out.println(e);
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Mapa escolhido é inválido! Por favor introduza um mapa válido.");
         }
-
 
         if (dificuldade.equalsIgnoreCase("BASICO")) {
             dificuldadeEscolhida = Dificuldade.BASICO;
@@ -159,7 +173,6 @@ public class Menu {
         String pos = null;
         boolean perdeu = false;
 
-
         while (jogo.getPosicaoJogador() != jogo.tamanhoMapa() - 1) {
 
             if (jogo.getVidaJogador() <= 0) {
@@ -183,13 +196,12 @@ public class Menu {
 
 
         if (perdeu) {
-            System.out.println("Perdeste, tenta outra vez");
+            System.out.println("Perdeste, tenta outra vez!");
         } else {
             classificacao.adicionarJogadores(jogador);
             classificacao.guardarClassificaoJSON();
-            System.out.println(jogador.getNome() + " -> PARABÉNS, ÉS O MAIOR ! \n\n\n");
+            System.out.println(jogador.getNome() + " -> Sucesso, chegou ao exterior!\n\n\n");
         }
-
     }
 
     private void classificacoes() throws IOException, NoComparableException {
@@ -214,7 +226,12 @@ public class Menu {
 
         Classificacao classificacao = new Classificacao(mapaEscolhido.substring(0, mapaEscolhido.length()-5));
 
-        classificacao.lerClassificacaoJSON();
+        try {
+            classificacao.lerClassificacaoJSON();
+        } catch (IOException e) {
+            System.out.println("Erro na leitura do ficheiro" + e);
+            return;
+        }
 
         System.out.println(classificacao.getJogadores().length);
 
@@ -222,7 +239,6 @@ public class Menu {
             if (classificacao.getJogador(i) != null) {
                 orderedListJogadores.add(classificacao.getJogador(i));
             }
-
         }
 
         Iterator<Jogador> it = orderedListJogadores.iterator();

@@ -1,7 +1,5 @@
 package Jogo;
 
-import Estruturas.ArrayOrderedList;
-import Estruturas.NoComparableException;
 import com.google.gson.Gson;
 
 import java.io.Reader;
@@ -63,14 +61,14 @@ public class Mapa {
         return mapa.length;
     }
 
-    public Aposento getAposento(int i){
+    public Aposento getAposento(int i) {
         return this.mapa[i];
     }
 
 
-    public boolean temEntradaOuExterior(){
-        for(Aposento aposento : mapa){
-            if(aposento.getAposento().equals("entrada") || aposento.getAposento().equals("exterior")){
+    public boolean temEntradaOuExterior() {
+        for (Aposento aposento : mapa) {
+            if (aposento.getAposento().equals("entrada") || aposento.getAposento().equals("exterior")) {
                 return true;
             }
         }
@@ -78,9 +76,9 @@ public class Mapa {
         return false;
     }
 
-    public boolean temLigacaoEntrada(){
-        for(Aposento aposento : mapa){
-            if(aposento.getLigacoes().contains("entrada")){
+    public boolean temLigacaoEntrada() {
+        for (Aposento aposento : mapa) {
+            if (aposento.getLigacoes().contains("entrada")) {
                 return true;
             }
         }
@@ -88,9 +86,9 @@ public class Mapa {
         return false;
     }
 
-    public boolean temLigacaoExterior(){
-        for(Aposento aposento : mapa){
-            if(aposento.getLigacoes().contains("exterior")){
+    public boolean temLigacaoExterior() {
+        for (Aposento aposento : mapa) {
+            if (aposento.getLigacoes().contains("exterior")) {
                 return true;
             }
         }

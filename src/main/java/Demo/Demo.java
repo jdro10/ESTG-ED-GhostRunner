@@ -9,13 +9,13 @@ import java.io.IOException;
 
 public class Demo {
 
-    public static void main(String[] args) throws InvalidIndexException, MapaException, IOException {
+    public static void main(String[] args) {
 
         Menu menu = new Menu();
 
-        try{
+        try {
             menu.menuPrincipal();
-        } catch (InvalidIndexException | MapaException | NoComparableException e){
+        } catch (InvalidIndexException | MapaException | NoComparableException | IOException e) {
             System.out.println(e);
         }
     }
