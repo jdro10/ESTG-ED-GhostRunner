@@ -32,6 +32,10 @@ public class Classificacao {
         this.jogadores = new Jogador[DEFAULT_CAPACITY];
     }
 
+    /**
+     * método responsável por carregar o ficheiro json dos scores, sendo estes por mapa e dificuldade
+     * @throws IOException
+     */
     public void carregarClassificacaoJSON() throws IOException {
         Gson gson = new Gson();
 
@@ -47,6 +51,10 @@ public class Classificacao {
         reader.close();
     }
 
+    /**
+     * método responsável por ler o ficheiro json dos scores, sendo estes por mapa e dificuldade
+     * @throws IOException
+     */
     public void lerClassificacaoJSON() throws IOException {
         Gson gson = new Gson();
 
@@ -62,6 +70,10 @@ public class Classificacao {
         reader.close();
     }
 
+    /**
+     * método responsável por guardar o ficheiro json dos scores, sendo estes por mapa e dificuldade
+     * @throws IOException
+     */
     public void guardarClassificaoJSON() throws IOException {
         GsonBuilder builder = new GsonBuilder();
         builder.setPrettyPrinting();
@@ -105,6 +117,9 @@ public class Classificacao {
         return dificuldade;
     }
 
+    /**
+     * método responsável por expandir a capacidade do array no caso se encontrar cheio
+     */
     private void expandCapacity() {
         Jogador[] novoArray = new Jogador[this.jogadores.length * 2];
 

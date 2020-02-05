@@ -28,6 +28,10 @@ public class Jogo {
         return this.posicaoJogador;
     }
 
+    /**
+     * método responsável por ler o mapa e  adicionar os vértices ao grafo
+     * @throws MapaException
+     */
     private void initializeGraph() throws MapaException {
         if (mapa.temEntradaOuExterior()) {
             throw new MapaException("mapa inválido");
@@ -62,6 +66,10 @@ public class Jogo {
         }
     }
 
+    /**
+     * método responsável por descobrir a melhor maneira de passar um nível
+     * @throws InvalidIndexException
+     */
     public void simulacaoJogo() throws InvalidIndexException {
         Iterator<Aposento> it = this.graph.getShortestPath(this.entrada, this.exterior);
 
@@ -69,9 +77,15 @@ public class Jogo {
             System.out.println(it.next());
         }
 
-        System.out.println("\nPeso do caminho mais curto: " + this.graph.shortestPathWeight(this.entrada, this.exterior));
+        System.out.println("\nDano sofrido : " + (this.graph.shortestPathWeight(this.entrada, this.exterior) * this.dificuldadeMultiplicador));
     }
 
+    /**
+     * método responsável por verificar se um vértice contém ligação a outro
+     * @param aposento
+     * @param index
+     * @return
+     */
     public boolean hasEdge(String aposento, int index) {
         if (this.graph.getVertex(index).getLigacoes().contains(aposento)) {
             return true;
@@ -80,6 +94,9 @@ public class Jogo {
         return false;
     }
 
+    /**
+     * método responsável por imprimir no ecrã os aponsentos com ligação no jogo manual
+     */
     public void mostrarHipoteses() {
         int j = 0;
 
@@ -95,6 +112,10 @@ public class Jogo {
         return this.graph.size();
     }
 
+    /**
+     * método responsável por receber a opção do jogador e tratá-la de forma a progredir no jogo
+     * @param opcao
+     */
     public void escolheOpcoes(int opcao) {
         int j = 0;
         int[] array = new int[this.graph.size()];
@@ -117,10 +138,18 @@ public class Jogo {
         return this.jogador.getPontuacao();
     }
 
+    /**
+     * método responsável por, em caso de o utilizador ir para um aposento com fantasma, causar-lhe dano
+     * @param indiceDoVertice
+     */
     private void dano_recebido(int indiceDoVertice) {
         this.jogador.setPontuacao(this.jogador.getPontuacao() - (this.graph.getVertex(indiceDoVertice).getFantasma() * this.dificuldadeMultiplicador));
     }
 
+    /**
+     * método responsável por definir o multiplicador consoante a dificuldade escolhida pelo utilizador
+     * @param dificuldade
+     */
     public void setDificuldadeMultiplicador(Dificuldade dificuldade) {
         this.dificuldade = dificuldade;
 

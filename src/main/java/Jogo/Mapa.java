@@ -12,6 +12,10 @@ public class Mapa {
     public int pontos;
     public Aposento[] mapa;
 
+    /**
+     * método responsável por carregar o ficheiro json do mapa, ou seja, pontuação, nome e aposentos
+     * @param s
+     */
     public void lerJson(String s) {
         try {
             Gson gson = new Gson();
