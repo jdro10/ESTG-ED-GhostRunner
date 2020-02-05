@@ -31,7 +31,7 @@ public class LinearNode<T> {
     /**
      * Returns the node that follows this one.
      *
-     * @return LinearNode<T> reference to next node
+     * @return LinearNode reference to next node
      */
     public LinearNode<T> getNext() {
         return next;
