@@ -40,9 +40,9 @@ public class Aposento {
 
     @Override
     public String toString() {
-        return "Aposentos{" +
-                "aposento='" + this.aposento + '\'' +
-                ", fantasma=" + this.fantasma +
+        return "Aposento{" +
+                "Nome='" + this.aposento + '\'' +
+                ", Numero de fantasmas=" + this.fantasma +
                 '}';
     }
 }

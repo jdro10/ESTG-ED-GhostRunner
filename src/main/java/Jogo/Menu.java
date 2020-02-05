@@ -126,6 +126,18 @@ public class Menu {
             System.out.println("Introduza a dificuldade: ");
             dificuldade = reader.readLine();
 
+            if (dificuldade.equalsIgnoreCase("BASICO")) {
+                dificuldadeEscolhida = Dificuldade.BASICO;
+            } else if (dificuldade.equalsIgnoreCase("NORMAL")) {
+                dificuldadeEscolhida = Dificuldade.NORMAL;
+            } else if (dificuldade.equalsIgnoreCase("DIFICIL")) {
+                dificuldadeEscolhida = Dificuldade.DIFICIL;
+            } else {
+                System.out.println("\nDificuldade introduzida inválida.");
+                System.out.println("Dificuldade definida como 'BASICO'\n");
+                dificuldadeEscolhida = Dificuldade.BASICO;
+            }
+
             File file = new File("./mapExample/");
             File[] arquivos = file.listFiles();
 
@@ -146,20 +158,12 @@ public class Menu {
             System.out.println("Mapa escolhido é inválido! Por favor introduza um mapa válido.");
         }
 
-        if (dificuldade.equalsIgnoreCase("BASICO")) {
-            dificuldadeEscolhida = Dificuldade.BASICO;
-        } else if (dificuldade.equalsIgnoreCase("NORMAL")) {
-            dificuldadeEscolhida = Dificuldade.NORMAL;
-        } else if (dificuldade.equalsIgnoreCase("DIFICIL")) {
-            dificuldadeEscolhida = Dificuldade.DIFICIL;
-        }
-
         mapa.lerJson(mapaEscolhido);
 
-        Classificacao classificacao = new Classificacao(mapa.getNome());
+        Classificacao classificacao = new Classificacao(mapa.getNome(), dificuldadeEscolhida);
 
         try {
-            classificacao.lerClassificacaoJSON();
+            classificacao.carregarClassificacaoJSON();
         } catch (IOException e) {
             System.out.println(e);
         }
@@ -193,21 +197,22 @@ public class Menu {
             jogo.escolheOpcoes(Integer.parseInt(pos));
         }
 
-
-
         if (perdeu) {
             System.out.println("Perdeste, tenta outra vez!");
         } else {
             classificacao.adicionarJogadores(jogador);
             classificacao.guardarClassificaoJSON();
-            System.out.println(jogador.getNome() + " -> Sucesso, chegou ao exterior!\n\n\n");
+            System.out.println(jogador.getNome() + " -> Sucesso, chegou ao exterior!\n");
         }
     }
 
     private void classificacoes() throws IOException, NoComparableException {
         ArrayOrderedList<Jogador> orderedListJogadores = new ArrayOrderedList<Jogador>();
         BufferedReader reader = new BufferedReader(this.inputStreamReader);
+        BufferedReader readerDificuldade = new BufferedReader(this.inputStreamReader);
         String mapaEscolhido = null;
+        String dificuldade = null;
+        Dificuldade dificuldadeEscolhida = null;
 
         System.out.println("Introduza o nome do mapa que pretende ver as classificações: ");
 
@@ -224,7 +229,7 @@ public class Menu {
             mapaEscolhido = arquivos[0].getName();
         }
 
-        Classificacao classificacao = new Classificacao(mapaEscolhido.substring(0, mapaEscolhido.length()-5));
+        Classificacao classificacao = new Classificacao(mapaEscolhido.substring(0, mapaEscolhido.length() - 5));
 
         try {
             classificacao.lerClassificacaoJSON();

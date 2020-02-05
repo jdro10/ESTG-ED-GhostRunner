@@ -9,17 +9,42 @@ import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import Enum.Dificuldade;
+
 public class Classificacao {
 
     private String nomeMapa;
     private Jogador[] jogadores;
     private final int DEFAULT_CAPACITY = 5;
     private int numeroJogadores;
+    private Dificuldade dificuldade;
+
+    public Classificacao(String nomeMapa, Dificuldade dificuldade) {
+        this.numeroJogadores = 0;
+        this.nomeMapa = nomeMapa;
+        this.dificuldade = dificuldade;
+        this.jogadores = new Jogador[DEFAULT_CAPACITY];
+    }
 
     public Classificacao(String nomeMapa) {
         this.numeroJogadores = 0;
         this.nomeMapa = nomeMapa;
         this.jogadores = new Jogador[DEFAULT_CAPACITY];
+    }
+
+    public void carregarClassificacaoJSON() throws IOException {
+        Gson gson = new Gson();
+
+        Reader reader = Files.newBufferedReader(Paths.get("./Classificacoes/" + this.nomeMapa + this.dificuldade + ".json"));
+
+        Classificacao classificacao = gson.fromJson(reader, Classificacao.class);
+
+        this.nomeMapa = classificacao.getNomeMapa();
+        this.jogadores = classificacao.getJogadores();
+        this.numeroJogadores = classificacao.getNumeroJogadores();
+        this.dificuldade = classificacao.getDificuldade();
+
+        reader.close();
     }
 
     public void lerClassificacaoJSON() throws IOException {
@@ -32,17 +57,18 @@ public class Classificacao {
         this.nomeMapa = classificacao.getNomeMapa();
         this.jogadores = classificacao.getJogadores();
         this.numeroJogadores = classificacao.getNumeroJogadores();
+        this.dificuldade = classificacao.getDificuldade();
 
         reader.close();
     }
 
     public void guardarClassificaoJSON() throws IOException {
         GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-
         builder.setPrettyPrinting();
 
-        FileWriter writer = new FileWriter("./Classificacoes/" + this.nomeMapa + ".json");
+        Gson gson = builder.create();
+
+        FileWriter writer = new FileWriter("./Classificacoes/" + this.nomeMapa + this.dificuldade + ".json");
 
         gson.toJson(this, writer);
 
@@ -73,6 +99,10 @@ public class Classificacao {
 
     public Jogador getJogador(int index) {
         return this.jogadores[index];
+    }
+
+    public Dificuldade getDificuldade() {
+        return dificuldade;
     }
 
     private void expandCapacity() {

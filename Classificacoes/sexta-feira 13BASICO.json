@@ -2,6 +2,22 @@
   "nomeMapa": "sexta-feira 13",
   "jogadores": [
     {
+      "nome": "Jorge",
+      "pontuacao": 80
+    },
+    {
+      "nome": "Jorge",
+      "pontuacao": 80
+    },
+    {
+      "nome": "jorge",
+      "pontuacao": 80
+    },
+    {
+      "nome": "jorge",
+      "pontuacao": 80
+    },
+    {
       "nome": "jorge",
       "pontuacao": 80
     },
@@ -10,26 +26,14 @@
       "pontuacao": 80
     },
     {
-      "nome": "jorge3",
-      "pontuacao": 10
-    },
-    {
-      "nome": "jorge4",
+      "nome": "xpromate",
       "pontuacao": 80
     },
-    {
-      "nome": "jorge5",
-      "pontuacao": 80
-    },
-    {
-      "nome": "jorge6",
-      "pontuacao": 80
-    },
-    null,
     null,
     null,
     null
   ],
   "DEFAULT_CAPACITY": 5,
-  "numeroJogadores": 6
+  "numeroJogadores": 7,
+  "dificuldade": "BASICO"
 }

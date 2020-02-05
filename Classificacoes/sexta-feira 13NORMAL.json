@@ -1,0 +1,19 @@
+{
+  "nomeMapa": "sexta-feira 13",
+  "jogadores": [
+    {
+      "nome": "jorge",
+      "pontuacao": 60
+    },
+    {
+      "nome": "xpromate",
+      "pontuacao": 60
+    },
+    null,
+    null,
+    null
+  ],
+  "DEFAULT_CAPACITY": 5,
+  "numeroJogadores": 2,
+  "dificuldade": "NORMAL"
+}
