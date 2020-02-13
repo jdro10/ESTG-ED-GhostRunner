@@ -6,6 +6,7 @@ import Enum.Dificuldade;
 import Exceptions.MapaException;
 
 import java.util.Iterator;
+import java.util.Random;
 
 public class Jogo {
 
@@ -17,12 +18,41 @@ public class Jogo {
     private Aposento entrada;
     private Aposento exterior;
     private int posicaoJogador;
+    private int maiorDano;
+    private int aposentoComEscudo;
+    private int valorEscudo;
+    public boolean apanhouEscudo;
 
     public Jogo(Mapa mapa, Dificuldade dificuldade) throws InvalidIndexException, MapaException, EmptyException {
         this.mapa = mapa;
         this.graph = new NetworkGame();
         this.setDificuldadeMultiplicador(dificuldade);
         this.initializeGraph();
+    }
+
+    public void divisaoEscudo(){
+        boolean found = false;
+
+        while(!found){
+            Random rand = new Random();
+            int randomNum = rand.nextInt(this.graph.size());
+
+            if(randomNum == 0){
+                randomNum++;
+            }
+
+            if(randomNum == this.graph.size()){
+                randomNum--;
+            }
+
+            if (this.graph.getVertex(randomNum).getFantasma() == 0.0){
+                int randomShield = rand.nextInt(this.maiorDano- 1) + 1;
+                this.aposentoComEscudo = randomNum;
+                this.valorEscudo = randomShield;
+                this.apanhouEscudo = false;
+                found = true;
+            }
+        }
     }
 
     public int getPosicaoJogador() {
@@ -51,8 +81,13 @@ public class Jogo {
 
         this.graph.addVertex(entrada);
 
+        this.maiorDano = 0;
+
         for (int i = 0; i < this.mapa.numeroSalas(); i++) {
             this.graph.addVertex(this.mapa.getAposento(i));
+            if(this.mapa.getAposento(i).getFantasma() > this.maiorDano){
+                this.maiorDano = this.mapa.getAposento(i).getFantasma();
+            }
         }
 
         this.graph.addVertex(this.exterior);
@@ -65,6 +100,10 @@ public class Jogo {
                 }
             }
         }
+
+        this.divisaoEscudo();//pra criar um escudo
+        System.out.println("o escudo está no " + this.graph.getVertex(this.aposentoComEscudo));
+        System.out.println("o valor é " + this.valorEscudo);
 
         if(!this.graph.isConnected()){
             throw new MapaException("mapa inválido");
@@ -132,6 +171,11 @@ public class Jogo {
             }
         }
 
+        if(!this.apanhouEscudo && array[opcao] == this.aposentoComEscudo){
+            this.jogador.setEscudo(this.valorEscudo);
+            this.apanhouEscudo = true;
+        }
+
         if (opcao <= j) {
             this.posicaoJogador = array[opcao];
             this.dano_recebido(array[opcao]);
@@ -148,7 +192,21 @@ public class Jogo {
      * @param indiceDoVertice
      */
     private void dano_recebido(int indiceDoVertice) {
-        this.jogador.setPontuacao(this.jogador.getPontuacao() - (this.graph.getVertex(indiceDoVertice).getFantasma() * this.dificuldadeMultiplicador));
+        int dano = this.graph.getVertex(indiceDoVertice).getFantasma() * this.dificuldadeMultiplicador;
+
+        if(jogador.getEscudo() > 0){
+            if(jogador.getEscudo() >= dano){
+                jogador.setEscudo(jogador.getEscudo()-dano);
+                dano = 0;
+            }else{
+                dano = dano - jogador.getEscudo();
+                jogador.setEscudo(0);
+            }
+        }
+
+        if(dano > 0){
+            this.jogador.setPontuacao(this.jogador.getPontuacao() - dano);
+        }
     }
 
     /**
@@ -170,5 +228,6 @@ public class Jogo {
     public void setJogador(Jogador jogador) {
         this.jogador = jogador;
         this.jogador.setPontuacao(this.mapa.getPontos());
+        this.jogador.setEscudo(0);
     }
 }

@@ -99,4 +99,15 @@ public class Mapa {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        String s = "Nome:" + this.nome + "\n" +"Pontos: " + this.pontos + "\n";
+        s +="Aposento{Nome='entrada', Numero de fantasmas=0}\n";
+        for (Aposento ap : this.mapa){
+            s += ap.toString() + "\n";
+        }
+        s +="Aposento{Nome='exterior', Numero de fantasmas=0}\n";
+        return s;
+    }
 }

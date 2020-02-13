@@ -4,6 +4,15 @@ public class Jogador implements Comparable<Jogador> {
 
     private String nome;
     private int pontuacao;
+    private int escudo;
+
+    public int getEscudo() {
+        return escudo;
+    }
+
+    public void setEscudo(int escudo) {
+        this.escudo = escudo;
+    }
 
     public Jogador(String nome) {
         this.nome = nome;
