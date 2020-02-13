@@ -29,7 +29,8 @@ public class Menu {
             System.out.println("----- GHOST RUNNER -----");
             System.out.println("1 - Modo simulação");
             System.out.println("2 - Modo manual");
-            System.out.println("3 - Classificações");
+            System.out.println("3 - Ver Mapa");
+            System.out.println("4 - Classificações");
             System.out.println("0 - Sair");
 
             try {
@@ -46,6 +47,9 @@ public class Menu {
                     this.modoManual();
                     break;
                 case "3":
+                    this.verMapa();
+                    break;
+                case "4":
                     this.classificacoes();
                     break;
                 default:
@@ -59,7 +63,7 @@ public class Menu {
         } while (!escolha.equals("0"));
     }
 
-    private void modoSimulacao() throws InvalidIndexException {
+    private void verMapa(){
         BufferedReader reader = new BufferedReader(this.inputStreamReader);
         Mapa mapa = new Mapa();
         String dificuldade = null;
@@ -68,6 +72,9 @@ public class Menu {
 
         try {
             System.out.println("Introduza a dificuldade: ");
+            System.out.println("Básico -> Opção: 0");
+            System.out.println("Médio -> Opção: 1");
+            System.out.println("Difícil -> Opção: 2");
             dificuldade = reader.readLine();
             File file = new File("./mapExample/");
             File[] arquivos = file.listFiles();
@@ -75,7 +82,7 @@ public class Menu {
             int j = 0;
 
             for (File fileTmp : arquivos) {
-                System.out.println(fileTmp.getName() + " -> Opcao: " + j++);
+                System.out.println(fileTmp.getName().substring(0, fileTmp.getName().length() - 5) + " -> Opção: " + j++);
             }
 
             int opcao = Integer.parseInt(reader.readLine());
@@ -91,11 +98,68 @@ public class Menu {
             return;
         }
 
-        if (dificuldade.equalsIgnoreCase("BASICO")) {
+        if (dificuldade.equalsIgnoreCase("0")) {
             dificuldadeEscolhida = Dificuldade.BASICO;
-        } else if (dificuldade.equalsIgnoreCase("NORMAL")) {
+        } else if (dificuldade.equalsIgnoreCase("1")) {
             dificuldadeEscolhida = Dificuldade.NORMAL;
-        } else if (dificuldade.equalsIgnoreCase("DIFICIL")) {
+        } else if (dificuldade.equalsIgnoreCase("2")) {
+            dificuldadeEscolhida = Dificuldade.DIFICIL;
+        } else {
+            System.out.println("\nDificuldade introduzida inválida.");
+            System.out.println("Dificuldade definida como 'BASICO'\n");
+            dificuldadeEscolhida = Dificuldade.BASICO;
+        }
+
+        mapa.lerJson(mapaEscolhido);
+
+        try {
+            Jogo jogo = new Jogo(mapa, dificuldadeEscolhida);
+            System.out.println(mapa.toString());
+        } catch (MapaException | EmptyException | InvalidIndexException e) {
+            System.out.println("Mapa escolhido é inválido! Por favor introduza um mapa válido.");
+        }
+    }
+
+    private void modoSimulacao() throws InvalidIndexException {
+        BufferedReader reader = new BufferedReader(this.inputStreamReader);
+        Mapa mapa = new Mapa();
+        String dificuldade = null;
+        Dificuldade dificuldadeEscolhida = null;
+        String mapaEscolhido = null;
+
+        try {
+            System.out.println("Introduza a dificuldade: ");
+            System.out.println("Básico -> Opção: 0");
+            System.out.println("Médio -> Opção: 1");
+            System.out.println("Difícil -> Opção: 2");
+            dificuldade = reader.readLine();
+            File file = new File("./mapExample/");
+            File[] arquivos = file.listFiles();
+
+            int j = 0;
+
+            for (File fileTmp : arquivos) {
+                System.out.println(fileTmp.getName().substring(0, fileTmp.getName().length() - 5) + " -> Opção: " + j++);
+            }
+
+            int opcao = Integer.parseInt(reader.readLine());
+
+            if (opcao <= j) {
+                mapaEscolhido = arquivos[opcao].getName();
+            } else {
+                mapaEscolhido = arquivos[0].getName();
+            }
+
+        } catch (IOException | NumberFormatException e) {
+            System.out.println("Erro, opção introduzida inválida! Tente novamente.");
+            return;
+        }
+
+        if (dificuldade.equalsIgnoreCase("0")) {
+            dificuldadeEscolhida = Dificuldade.BASICO;
+        } else if (dificuldade.equalsIgnoreCase("1")) {
+            dificuldadeEscolhida = Dificuldade.NORMAL;
+        } else if (dificuldade.equalsIgnoreCase("2")) {
             dificuldadeEscolhida = Dificuldade.DIFICIL;
         } else {
             System.out.println("\nDificuldade introduzida inválida.");
@@ -125,13 +189,16 @@ public class Menu {
             System.out.println("Introduza o seu nome: ");
             nomeJogador = reader.readLine();
             System.out.println("Introduza a dificuldade: ");
+            System.out.println("Básico -> Opção: 0");
+            System.out.println("Médio -> Opção: 1");
+            System.out.println("Difícil -> Opção: 2");
             dificuldade = reader.readLine();
 
-            if (dificuldade.equalsIgnoreCase("BASICO")) {
+            if (dificuldade.equalsIgnoreCase("0")) {
                 dificuldadeEscolhida = Dificuldade.BASICO;
-            } else if (dificuldade.equalsIgnoreCase("NORMAL")) {
+            } else if (dificuldade.equalsIgnoreCase("1")) {
                 dificuldadeEscolhida = Dificuldade.NORMAL;
-            } else if (dificuldade.equalsIgnoreCase("DIFICIL")) {
+            } else if (dificuldade.equalsIgnoreCase("2")) {
                 dificuldadeEscolhida = Dificuldade.DIFICIL;
             } else {
                 System.out.println("\nDificuldade introduzida inválida.");

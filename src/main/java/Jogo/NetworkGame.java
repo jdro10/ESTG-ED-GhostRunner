@@ -22,6 +22,41 @@ public class NetworkGame<T> extends Network<T> {
         this.weightMatrix[posv1][posv2] = weight;
     }
 
+
+    public void addVertex(T vertex){
+        if (this.numVertices == this.vertices.length) {
+            expandCapacity();
+        }
+
+        this.vertices[this.numVertices] = vertex;
+
+        for (int i = 0; i <= this.numVertices; i++) {
+            this.adjMatrix[this.numVertices][i] = false;
+            this.adjMatrix[i][this.numVertices] = false;
+        }
+
+        this.numVertices++;
+    }
+
+    private void expandCapacity(){
+        T[] verticesTmp = ((T[]) new Object[this.vertices.length * 2]);
+
+        double[][] weightMatrixTmp = new double[this.vertices.length*2][this.vertices.length*2];
+        boolean[][] adjMatrixTmp = new boolean[this.vertices.length * 2][this.vertices.length * 2];
+
+        for (int i = 0; i < this.vertices.length; i++) {
+            for (int j = 0; j < this.vertices.length; j++) {
+                weightMatrixTmp[i][j] = this.weightMatrix[i][j];
+                adjMatrixTmp[i][j] = this.adjMatrix[i][j];
+            }
+            verticesTmp[i] = this.vertices[i];
+        }
+
+        this.vertices = verticesTmp;
+        this.adjMatrix = adjMatrixTmp;
+        this.weightMatrix = weightMatrixTmp;
+    }
+
     public boolean getAdjMatrixIndex(int i, int j) {
         return this.adjMatrix[i][j];
     }
