@@ -1,5 +1,7 @@
 package Estruturas;
 
+import Jogo.Aposento;
+
 import java.util.Iterator;
 
 public class Network<T> extends Graph<T> implements NetworkADT<T> {
@@ -78,12 +80,15 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         }
 
         Iterator<T> iterator = this.dijkstraShortestPath(index1, index2);
-        double sum = 0;
 
-        int i = 0;
-        while (iterator.hasNext() && i != super.size()) {
-            sum += this.weightMatrix[i][getIndex(iterator.next())];
-            i++;
+        int oldIndex = 0;
+        int newIndex;
+        int sum = 0;
+
+        while (iterator.hasNext()) {
+            newIndex = getIndex(iterator.next());
+            sum += this.weightMatrix[oldIndex][newIndex];
+            oldIndex = newIndex;
         }
 
         return sum;
@@ -147,6 +152,8 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         if (visitedVertex[endIndex]) {
             pathVertices.addToRear(super.vertices[endIndex]);
         }
+
+        System.out.println("size" + pathVertices.size());
 
         return pathVertices.iterator();
     }

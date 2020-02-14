@@ -1,0 +1,17 @@
+{
+  "nomeMapa": "sexta-feira 13",
+  "jogadores": [
+    {
+      "nome": "jorge",
+      "pontuacao": 48,
+      "escudo": 0
+    },
+    null,
+    null,
+    null,
+    null
+  ],
+  "DEFAULT_CAPACITY": 5,
+  "numeroJogadores": 1,
+  "dificuldade": "DIFICIL"
+}
