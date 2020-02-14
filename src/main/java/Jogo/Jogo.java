@@ -101,9 +101,7 @@ public class Jogo {
             }
         }
 
-        this.divisaoEscudo();//pra criar um escudo
-        System.out.println("o escudo está no " + this.graph.getVertex(this.aposentoComEscudo));
-        System.out.println("o valor é " + this.valorEscudo);
+        this.divisaoEscudo();
 
         if(!this.graph.isConnected()){
             throw new MapaException("mapa inválido");

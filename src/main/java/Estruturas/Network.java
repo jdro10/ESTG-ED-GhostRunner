@@ -1,7 +1,5 @@
 package Estruturas;
 
-import Jogo.Aposento;
-
 import java.util.Iterator;
 
 public class Network<T> extends Graph<T> implements NetworkADT<T> {
@@ -152,8 +150,6 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         if (visitedVertex[endIndex]) {
             pathVertices.addToRear(super.vertices[endIndex]);
         }
-
-        System.out.println("size" + pathVertices.size());
 
         return pathVertices.iterator();
     }
