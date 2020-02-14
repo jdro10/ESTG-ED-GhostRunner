@@ -171,6 +171,11 @@ public class Jogo {
             }
         }
 
+        if (opcao > j){
+            System.out.println("Opção inexistente !");
+            return ;
+        }
+
         if(!this.apanhouEscudo && array[opcao] == this.aposentoComEscudo){
             this.jogador.setEscudo(this.valorEscudo);
             this.apanhouEscudo = true;

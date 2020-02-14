@@ -270,7 +270,16 @@ public class Menu {
                 System.out.println(e);
             }
 
-            jogo.escolheOpcoes(Integer.parseInt(pos));
+            int opcaoJogador;
+
+            try{
+                opcaoJogador = Integer.parseInt(pos);
+                jogo.escolheOpcoes(opcaoJogador);
+            }catch(NumberFormatException ex){
+                System.out.println("Introduza um número por favor");
+            }
+
+            //jogo.escolheOpcoes();
         }
 
         if (perdeu) {
