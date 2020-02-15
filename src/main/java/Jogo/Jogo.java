@@ -63,7 +63,7 @@ public class Jogo {
      * método responsável por ler o mapa e  adicionar os vértices ao grafo
      * @throws MapaException
      */
-    private void initializeGraph() throws MapaException, EmptyException {
+    private void initializeGraph() throws MapaException, EmptyException, InvalidIndexException {
         if (mapa.temEntradaOuExterior()) {
             throw new MapaException("mapa inválido");
         }
@@ -105,6 +105,10 @@ public class Jogo {
 
         if(!this.graph.isConnected()){
             throw new MapaException("mapa inválido");
+        }
+
+        if(this.graph.shortestPathWeight(this.entrada,this.exterior)*this.dificuldadeMultiplicador >= this.mapa.getPontos()){
+            throw new MapaException("impossível passar o mapa!");
         }
     }
 
